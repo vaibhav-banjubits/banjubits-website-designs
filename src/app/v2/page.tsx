@@ -11,7 +11,7 @@ import {
   Work,
 } from "@/components/Home";
 
-export default function Home() {
+export default function HomeV2() {
   return (
     <>
       <a href="#main" className="skip">

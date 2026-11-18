@@ -21,14 +21,12 @@ export const metadata: Metadata = {
   title: "Banjubits | Production AI and digital platforms",
   description:
     "Banjubits is an AI engineering and product studio. Choose your industry, see the draft blueprint, then start a project.",
-  // An alternate homepage concept: keep it out of search until it replaces the live one.
-  robots: { index: false, follow: false },
 };
 
 export const viewport: Viewport = {
   themeColor: "#f5f7fa",
 };
 
-export default function V8Layout({ children }: { children: React.ReactNode }) {
+export default function HomeLayout({ children }: { children: React.ReactNode }) {
   return <div className={`hb-root ${display.variable} ${text.variable}`}>{children}</div>;
 }

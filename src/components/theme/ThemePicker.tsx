@@ -26,9 +26,9 @@ import "./picker.css";
  */
 
 const VERSIONS = [
-  { href: "/v1", n: "V1", name: "Harbour Flow", sub: "Light, navy + teal, blueprint-led" },
+  { href: "/", n: "V1", name: "Harbour Flow", sub: "Light, navy + teal, blueprint-led" },
   { href: "/v3", n: "V3", name: "Deep Harbour", sub: "Dark hero, 3D orb, mint" },
-  { href: "/", n: "V2", name: "Home", sub: "Ledger · warm paper, saffron" },
+  { href: "/v2", n: "V2", name: "Home", sub: "Ledger · warm paper, saffron" },
   { href: "/v4", n: "V4", name: "Cobalt", sub: "Bright, photo-led, white" },
   { href: "/v5", n: "V5", name: "Ivory & Ink", sub: "Editorial, brass detailing, Fraunces" },
   { href: "/v6", n: "V6", name: "Gilt", sub: "Work-first, serif italic accents" },
