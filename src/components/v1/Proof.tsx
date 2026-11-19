@@ -1,44 +1,37 @@
-import { proof } from "./data";
-import { Icon } from "./Icon";
+import { proofBar } from "./data";
 
-/** Proof straight under the hero: four published headline results on a deep navy stage. */
+/** What the engagements prove: four published points on a deep-navy stage (lower on the page than before). */
 export function Proof() {
   return (
-    <section className="hb-proof" aria-label="Results at a glance">
+    <section className="hb-proof" aria-label="What our engagements prove">
       <div className="hb-slab hb-slab--navy">
         <div className="hb-glow hb-glow--a" aria-hidden="true" />
         <div className="hb-glow hb-glow--b" aria-hidden="true" />
         <div className="hb-wrap">
           <div className="hb-proof__head hb-rv">
             <p className="hb-kicker hb-kicker--dark">
-              <i /> Results, not roadmaps
+              <i /> What our engagements prove
             </p>
-            <p className="hb-proof__sub">Four outcomes from real engagements, each one published.</p>
+            <p className="hb-proof__sub">Many enterprise AI pilots never reach production. Ours did.</p>
           </div>
           <ul className="hb-proof__list">
-            {proof.map((p, i) => (
-              <li key={p.sector} className="hb-rv" style={{ "--d": `${i * 90}ms` } as React.CSSProperties}>
-                <a href={p.href} className="hb-proof__item">
-                  <span className="hb-proof__sector">{p.sector}</span>
+            {proofBar.map((p, i) => (
+              <li key={p.tag} className="hb-rv" style={{ "--d": `${i * 90}ms` } as React.CSSProperties}>
+                <div className="hb-proof__item">
+                  <span className="hb-proof__sector">{p.tag}</span>
                   <strong className="hb-proof__fig">
-                    {p.count > 0 ? (
-                      <>
-                        {p.lead}
-                        <span data-count={p.count}>{p.count}</span>
-                        {p.tail}
-                      </>
-                    ) : (
-                      p.figure
-                    )}
+                    <span data-count={p.value}>{p.value.toLocaleString("en-US")}</span>
+                    {p.tail === "%" ? p.tail : p.tail && <span className="hb-proof__tail">{p.tail}</span>}
                   </strong>
                   <span className="hb-proof__label">{p.label}</span>
-                  <span className="hb-proof__go">
-                    <Icon n="arrow-ur" />
-                  </span>
-                </a>
+                </div>
               </li>
             ))}
           </ul>
+          <p className="hb-proof__bar hb-rv">
+            <b>One standard.</b> Keep what works. Ground the AI in real data. Keep people in charge. Prove it before
+            going live.
+          </p>
         </div>
       </div>
     </section>

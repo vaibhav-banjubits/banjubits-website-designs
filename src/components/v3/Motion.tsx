@@ -3,12 +3,9 @@
 import { useEffect, useRef } from "react";
 
 /**
- * Page-level motion for the v3 homepage. Renders the scroll-progress bar and
- * wires the decorative effects that act on server-rendered markup:
- * scroll reveals, count-ups, the hero orb tilt and the process road.
- *
- * Content stays visible without JavaScript: reveals only hide elements once
- * `data-js` is set on the root.
+ * Page-level motion for the v3 homepage: the scroll-progress bar, scroll reveals
+ * and a soft pointer-following light on cards. Content stays visible without
+ * JavaScript: reveals only hide elements once `data-js` is set on the root.
  */
 export function Motion() {
   const bar = useRef<HTMLElement>(null);
@@ -16,95 +13,38 @@ export function Motion() {
   useEffect(() => {
     const root = document.querySelector<HTMLElement>(".dh-root");
     if (!root) return;
-    const reduce = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const cleanups: Array<() => void> = [];
 
     /* ---- scroll reveals ---- */
     const reveals = [...root.querySelectorAll<HTMLElement>(".dh-rv")];
-    // Anything already on screen is marked in the same tick that hiding
-    // starts, so above-the-fold content never flashes.
+    // Anything already on screen is marked in the same tick that hiding starts,
+    // so above-the-fold content never flashes.
     for (const el of reveals) {
       const r = el.getBoundingClientRect();
-      if (r.top < window.innerHeight * 0.94 && r.bottom > 0)
-        el.classList.add("dh-in");
+      if (r.top < window.innerHeight * 0.94 && r.bottom > 0) el.classList.add("dh-in");
     }
     root.setAttribute("data-js", "");
-    const revealIO = new IntersectionObserver(
+    const io = new IntersectionObserver(
       (entries) => {
         for (const e of entries) {
           if (e.isIntersecting) {
             e.target.classList.add("dh-in");
-            revealIO.unobserve(e.target);
+            io.unobserve(e.target);
           }
         }
       },
       { threshold: 0.12, rootMargin: "0px 0px -6% 0px" },
     );
-    reveals.forEach(
-      (el) => !el.classList.contains("dh-in") && revealIO.observe(el),
-    );
+    reveals.forEach((el) => !el.classList.contains("dh-in") && io.observe(el));
     cleanups.push(() => {
-      revealIO.disconnect();
+      io.disconnect();
       root.removeAttribute("data-js");
     });
 
-    /* ---- count-ups ---- */
-    const counters = [...root.querySelectorAll<HTMLElement>("[data-count]")];
-    let raf = 0;
-    const countIO = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) {
-          if (!e.isIntersecting) continue;
-          countIO.unobserve(e.target);
-          if (reduce) continue;
-          const el = e.target as HTMLElement;
-          const end = Number(el.dataset.count);
-          const t0 = performance.now();
-          const tick = (t: number) => {
-            const p = Math.min(1, (t - t0) / 1500);
-            el.textContent = String(Math.round(end * (1 - Math.pow(1 - p, 4))));
-            if (p < 1) raf = requestAnimationFrame(tick);
-          };
-          el.textContent = "0";
-          raf = requestAnimationFrame(tick);
-        }
-      },
-      { threshold: 0.6 },
-    );
-    counters.forEach((el) => countIO.observe(el));
-    cleanups.push(() => {
-      countIO.disconnect();
-      cancelAnimationFrame(raf);
-    });
-
-    /* ---- hero orb tilt (fine pointers only) ---- */
-    const orb = root.querySelector<HTMLElement>(".dh-orb");
-    const hero = root.querySelector<HTMLElement>(".dh-hero");
-    if (orb && hero && !reduce && window.matchMedia("(hover: hover)").matches) {
-      const move = (e: PointerEvent) => {
-        const r = orb.getBoundingClientRect();
-        const nx = (e.clientX - (r.left + r.width / 2)) / window.innerWidth;
-        const ny = (e.clientY - (r.top + r.height / 2)) / window.innerHeight;
-        orb.style.setProperty("--ry", `${(nx * 26).toFixed(2)}deg`);
-        orb.style.setProperty("--rx", `${(-ny * 22).toFixed(2)}deg`);
-      };
-      const leave = () => {
-        orb.style.setProperty("--rx", "0deg");
-        orb.style.setProperty("--ry", "0deg");
-      };
-      hero.addEventListener("pointermove", move);
-      hero.addEventListener("pointerleave", leave);
-      cleanups.push(() => {
-        hero.removeEventListener("pointermove", move);
-        hero.removeEventListener("pointerleave", leave);
-      });
-    }
-
-    /* ---- soft gold spotlight that follows the pointer over cards ---- */
+    /* ---- soft light that follows the pointer over cards ---- */
     if (!reduce && window.matchMedia("(hover: hover)").matches) {
-      const SURFACES = ".dh-card, .dh-fcard, .dh-model, .dh-post, .dh-svc__row";
+      const SURFACES = ".dh-bar li, .dh-route__card, .dh-why__list li, .dh-case";
       let current: HTMLElement | null = null;
       const clear = () => {
         current?.style.removeProperty("--mx");
@@ -112,8 +52,7 @@ export function Motion() {
         current = null;
       };
       const onMove = (e: PointerEvent) => {
-        const el =
-          (e.target as Element | null)?.closest<HTMLElement>(SURFACES) ?? null;
+        const el = (e.target as Element | null)?.closest<HTMLElement>(SURFACES) ?? null;
         if (el !== current) clear();
         if (!el) return;
         current = el;
@@ -130,34 +69,12 @@ export function Motion() {
       });
     }
 
-    /* ---- scroll progress bar + process road ---- */
-    const road = root.querySelector<HTMLElement>(".dh-road");
-    const glow = root.querySelector<SVGPathElement>("#dh-roadGlow");
-    const roadSvg = root.querySelector<SVGElement>(".dh-road__svg");
+    /* ---- scroll progress bar ---- */
     let ticking = false;
     const update = () => {
       ticking = false;
       const max = document.documentElement.scrollHeight - window.innerHeight;
-      if (bar.current) {
-        bar.current.style.transform = `scaleX(${max > 0 ? Math.min(1, window.scrollY / max) : 0})`;
-      }
-      if (
-        road &&
-        glow &&
-        roadSvg &&
-        getComputedStyle(roadSvg).display !== "none"
-      ) {
-        const r = road.getBoundingClientRect();
-        const p = Math.min(
-          1,
-          Math.max(
-            0,
-            (window.innerHeight * 0.85 - r.top) /
-              (r.height + window.innerHeight * 0.25),
-          ),
-        );
-        glow.style.strokeDashoffset = (1 - p).toFixed(4);
-      }
+      if (bar.current) bar.current.style.transform = `scaleX(${max > 0 ? Math.min(1, window.scrollY / max) : 0})`;
     };
     const onScroll = () => {
       if (!ticking) {

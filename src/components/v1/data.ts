@@ -1,355 +1,533 @@
 import type { StaticImageData } from "next/image";
 import { img } from "./images";
 
-// Copy follows the Banjubits Brand Direction doc (blueprint-led homepage, proof right under the hero,
-// one main action: "Start a project"). Figures are the ones already published on banjubits.com.
-// Everything marked DRAFT needs checking against the real engagements before launch.
-
-export const sectors = [
-  "Financial services",
-  "Healthcare",
-  "Manufacturing",
-  "Education",
-  "Logistics and supply chain",
-  "Public and civic institutions",
-  "Workforce development",
-  "Retail and eCommerce",
-  "Professional services",
-];
-
-// The Definition of Done that ticks off as a visitor scrolls the delivery steps.
-export const doneItems = [
-  { label: "Outcome and constraints mapped", gate: "" },
-  { label: "Plan approved", gate: "Gate 1" },
-  { label: "Code reviewed by a person", gate: "Gate 2" },
-  { label: "Release signed off", gate: "Gate 3" },
-  { label: "Handed over with runbooks", gate: "" },
-];
-
-export const principles = [
-  { icon: "shield", title: "Govern", text: "Access, change and deployment stay controlled, reviewable and auditable." },
-  { icon: "target", title: "Ground", text: "Answers are grounded in approved sources and cited back to them." },
-  { icon: "user", title: "Humans decide", text: "A person approves every gate that matters, from plan to release." },
-];
+// All copy comes from BanjuBits_Capabilities_Provato_Deck.pptx (November 2026), plus the
+// 18 Nov team call (product-led homepage, each product on its own page, simpler structure).
+//
+// STATUS LABELS ARE THE ONE THING TO CHECK. They are my reading of the deck and the Brand Lab
+// (Atlas = Pilot and Forge = Roadmap in the Brand Direction doc; deck: "Mentis Voice is in
+// development", "Mentis HR runs our own hiring"). Change them here and the site follows.
 
 export const email = "coreops@banjubits.com";
 export const linkedin = "https://www.linkedin.com/company/banjubits/";
 
 export const NAV = [
-  { label: "Solutions", href: "#solutions" },
-  { label: "Case studies", href: "#work" },
-  { label: "AI demos", href: "#products" },
-  { label: "Products", href: "#products" },
-  { label: "About", href: "#delivery" },
+  { label: "Products", href: "/v4#products" },
+  { label: "Case studies", href: "/v4#work" },
+  { label: "How we engage", href: "/v4#engage" },
+  { label: "Why BanjuBits", href: "/v4#why" },
 ];
 
-export type Status = "Live" | "Pilot" | "Roadmap";
+export type Status = "Live" | "Pilot" | "In development" | "Roadmap";
 
-export type IndustryId = "enterprise" | "banking" | "workforce" | "education" | "civic";
+export type ProductId = "atlas" | "hub" | "renew" | "forge" | "voice" | "delivery";
 
-export type Industry = {
-  id: IndustryId;
-  label: string;
-  caption: string;
+export type Product = {
+  id: ProductId;
+  slug: string;
+  name: string; // accelerator name
+  short: string; // tab label
+  capability: string;
+  status: Status;
+  statusNote: string;
+  headline: string; // the deck's slide headline
+  summary: string;
+  speedsUp: string;
+  result: string;
+  challenge: string;
+  does: string[];
+  changes: string[];
+  proof: { label: string; text: string; metrics?: { value: string; label: string }[] };
   photo: StaticImageData;
-  alt: string;
-  position: string;
-  blueprint: {
-    title: string;
-    workstreams: { name: string; status: Status }[];
-    proof: { figure: string; label: string };
-  };
+  photoAlt: string;
+  photoPosition: string;
+  icon: string;
 };
 
-// DRAFT: the workstreams are what we would propose first, each labelled with how mature
-// that capability is today. Proof figures are already published.
-export const industries: Industry[] = [
+export const products: Product[] = [
   {
-    id: "enterprise",
-    label: "Enterprise",
-    caption: "Global technology company",
+    id: "atlas",
+    slug: "atlas",
+    name: "Mentis Atlas",
+    short: "Atlas",
+    capability: "Knowledge & Copilots",
+    status: "Pilot",
+    statusNote: "Pilot: running in a named-sector pilot, with approved and anonymised figures only.",
+    headline: "Put your company's know-how to work",
+    summary:
+      "A knowledge copilot with secure connectors. It reads only what each person is allowed to see and logs every access.",
+    speedsUp: "Knowledge & Copilots",
+    result: "Faster decisions, and know-how that stays when people leave",
+    challenge:
+      "Answers are buried in documents, systems and the heads of a few experts. When those experts leave, the know-how leaves with them.",
+    does: [
+      "Connect documents, email, chat, tickets and engineering data through secure connectors",
+      "Capture expert knowledge before it is lost",
+      "Give people plain-language answers, each showing its source",
+      "Respect each person's existing access rights, and log every request",
+    ],
+    changes: [
+      "Faster, better-informed decisions",
+      "New hires productive sooner",
+      "Know-how that stays with the company",
+      "Answers auditors can check",
+    ],
+    proof: {
+      label: "Delivered · In production",
+      text: "Three knowledge assistants in production at a leading AI computing company answer with citations across bug data, program documents, email, meeting transcripts and customer requirements.",
+      metrics: [{ value: "3", label: "knowledge assistants in production" }],
+    },
+    photo: img.office,
+    photoAlt: "People working at desks in a large open-plan office, one colleague walking towards the windows",
+    photoPosition: "60% 50%",
+    icon: "book",
+  },
+  {
+    id: "hub",
+    slug: "hub",
+    name: "Mentis Hub",
+    short: "Hub",
+    capability: "Agentic AI & Automation",
+    status: "Live",
+    statusNote: "Live: the pattern runs in production for a client today.",
+    headline: "AI assistants that finish the job, safely",
+    summary:
+      "One front door that routes each request to the right AI assistant, under shared safety and governance rules.",
+    speedsUp: "Agentic AI & Automation",
+    result: "Less manual work, and one front door for every AI assistant",
+    challenge:
+      "Teams have built AI assistants in isolation. Nobody can see them all, and few of them finish real work.",
+    does: [
+      "Bring existing assistants behind one front door, without rewriting them",
+      "Let AI carry out tasks securely across your systems, end to end",
+      "Add human approval wherever a decision matters",
+      "Choose the right AI model for each job, and track the cost",
+    ],
+    changes: [
+      "Less manual, repetitive work",
+      "One set of safety rules for every assistant",
+      "A clear view of AI usage and spend",
+      "AI inside the tools people already use",
+    ],
+    proof: {
+      label: "Delivered · In production",
+      text: "Twenty-two separate assistants now run on one platform across Teams, Slack and web, with every backend preserved at a leading AI computing company. Measured in production.",
+      metrics: [
+        { value: "20,130+", label: "users" },
+        { value: "≤750 ms", label: "P90 latency" },
+        { value: "≥85%", label: "routing accuracy" },
+      ],
+    },
     photo: img.orchestration,
-    alt: "Team reviewing a live agent-orchestration dashboard on a wall display",
-    position: "62% 50%",
-    blueprint: {
-      title: "One governed front door for your AI assistants",
-      workstreams: [
-        { name: "Agent routing and orchestration", status: "Live" },
-        { name: "Access control and audit trail", status: "Live" },
-        { name: "Governed knowledge copilot", status: "Pilot" },
-      ],
-      proof: { figure: "7 → 1", label: "Siloed AI assistants unified behind one governed entry point" },
-    },
+    photoAlt: "Team reviewing a live agent-orchestration dashboard on a wall display",
+    photoPosition: "60% 50%",
+    icon: "route",
   },
   {
-    id: "banking",
-    label: "Banking",
-    caption: "Financial services",
-    photo: img.banking,
-    alt: "Banking adviser meeting a customer at a desk in a bright branch",
-    position: "60% 50%",
-    blueprint: {
-      title: "First-line voice AI with a person always one step away",
-      workstreams: [
-        { name: "Voice agent for first-line calls", status: "Live" },
-        { name: "Human escalation with full context", status: "Live" },
-        { name: "Policy-grounded answers with citations", status: "Pilot" },
+    id: "renew",
+    slug: "renew",
+    name: "Mentis Renew",
+    short: "Renew",
+    capability: "AI-led Modernization",
+    status: "Live",
+    statusNote: "Live: the method was used on a production engagement.",
+    headline: "Modernize old systems without the big-bang risk",
+    summary:
+      "Our AI-led method to map, rebuild and test old systems side by side with the new.",
+    speedsUp: "AI-led Modernization",
+    result: "Lower running costs, without the big-bang risk",
+    challenge:
+      "Critical systems run on old code that few people understand. Every change is slow, and replacing them feels too risky.",
+    does: [
+      "Use AI to work out exactly what the old system does",
+      "Write down the business rules buried in the code, in plain language your experts can confirm",
+      "Rebuild it one part at a time on modern cloud technology",
+      "Run the old and new systems together until they give the same results, then switch over",
+    ],
+    changes: [
+      "Lower migration costs and license fees",
+      "Updates that are quicker and easier to make",
+      "No risky, all-at-once switch",
+      "A system your own team can understand and maintain",
+    ],
+    proof: {
+      label: "Delivered · In production",
+      text: "Licensed scoring pipelines were rebuilt as cloud-native services and validated to 100% scoring parity before any production traffic switched. About $20K a year in license cost was removed.",
+      metrics: [
+        { value: "100%", label: "scoring parity before cutover" },
+        { value: "~$20K", label: "a year in license cost removed" },
       ],
-      proof: { figure: "Human in the loop", label: "An escalation path designed into every call flow" },
     },
+    photo: img.datacentre,
+    photoAlt: "A quiet data-centre aisle lined with server racks and cabling",
+    photoPosition: "50% 50%",
+    icon: "swap",
   },
   {
-    id: "workforce",
-    label: "Workforce",
-    caption: "Workforce development",
+    id: "forge",
+    slug: "forge",
+    name: "Mentis Forge",
+    short: "Forge",
+    capability: "Engineering Design AI",
+    status: "Roadmap",
+    statusNote: "Roadmap: not built yet. We are looking for design partners.",
+    headline: "Shorter design cycles for engineering teams",
+    summary:
+      "A workflow that connects engineering tools, runs design loops and records every sign-off.",
+    speedsUp: "Engineering Design AI",
+    result: "Shorter design cycles, with a full audit trail",
+    challenge:
+      "Engineers spend days moving numbers between design, simulation and spreadsheet tools, one design option at a time.",
+    does: [
+      "Connect the engineering tools you already own",
+      "Turn customer requirements into a checklist each design must pass",
+      "Generate and test many design options automatically",
+      "Keep an engineer's sign-off at every key step, with a full record",
+    ],
+    changes: [
+      "Optimal design options tested in less time",
+      "Less copying of data from one tool to another",
+      "A record of every decision, ready to show in design reviews and to customers",
+      "Engineers spend their time on engineering, not data entry",
+    ],
+    proof: {
+      label: "Related delivery · In production",
+      text: "Three assistants on a product design platform were unified into one, built on a bill-of-materials knowledge graph over product lifecycle (PLM) data at a leading AI computing company. This is related work, not Forge itself.",
+    },
     photo: img.workforce,
-    alt: "Two analysts reviewing a regional workforce dashboard",
-    position: "50% 50%",
-    blueprint: {
-      title: "Regional labour-market data with answers you can check",
-      workstreams: [
-        { name: "Decision dashboards on one data layer", status: "Live" },
-        { name: "Retrieval assistant with source citations", status: "Live" },
-        { name: "Programme matching", status: "Roadmap" },
-      ],
-      proof: { figure: "≥95%", label: "AI answers grounded and cited back to source" },
-    },
+    photoAlt: "Two colleagues reviewing a data dashboard on a wall display",
+    photoPosition: "50% 50%",
+    icon: "cube",
   },
   {
-    id: "education",
-    label: "Education",
-    caption: "Schools and alumni",
-    photo: img.education,
-    alt: "Students working on laptops in a bright university study hall",
-    position: "40% 50%",
-    blueprint: {
-      title: "One open-source platform for schools, alumni and learning",
-      workstreams: [
-        { name: "School operations and alumni platform", status: "Live" },
-        { name: "AI-assisted learning", status: "Pilot" },
-        { name: "AI-led interviews, a person decides", status: "Roadmap" },
-      ],
-      proof: { figure: "50k+", label: "People reached through a multi-institution rollout" },
+    id: "voice",
+    slug: "voice-hr",
+    name: "Mentis Voice & HR",
+    short: "Voice & HR",
+    capability: "Voice & Customer AI",
+    status: "In development",
+    statusNote:
+      "Mentis HR is live and runs our own hiring (about 50 candidates to date). Mentis Voice is in development; a live demo exists.",
+    headline: "Always-on service that knows when to hand over",
+    summary:
+      "Voice agents for customer calls, and AI interviews where recruiters make the final call.",
+    speedsUp: "Voice & Customer AI",
+    result: "Always-on service, with your people free for the harder cases",
+    challenge:
+      "Customers want help at any hour. Your team is busy with routine questions, so higher-priority problems wait.",
+    does: [
+      "Put voice and chat agents on your website, phone lines and kiosks",
+      "Ground every answer in your own content and live data",
+      "Hand over to a person, with the full conversation, when judgment is needed",
+      "Capture the outcome of every conversation, so the service keeps improving",
+    ],
+    changes: [
+      "Customers get help 24/7",
+      "Routine questions answered without a wait",
+      "Your team free for higher-priority work",
+      "Every customer gets the same quality of answer",
+    ],
+    proof: {
+      label: "Built · Live demo",
+      text: "A voice and chat concierge for a Cleveland cultural district: scan a QR code, speak, and receive a personal itinerary drawn from the events of 10+ institutions.",
+      metrics: [{ value: "10+", label: "institutions in one conversation" }],
     },
-  },
-  {
-    id: "civic",
-    label: "Civic",
-    caption: "Public and civic institutions",
     photo: img.civic,
-    alt: "Citizens using self-service kiosks in a public building lobby",
-    position: "40% 50%",
-    blueprint: {
-      title: "Legacy services moved over without changing the outcome",
-      workstreams: [
-        { name: "Legacy modernisation with parity checks", status: "Live" },
-        { name: "Self-service intake and records", status: "Pilot" },
-        { name: "Multilingual citizen assistant", status: "Roadmap" },
-      ],
-      proof: { figure: "100%", label: "Scoring parity validated before a legacy system cutover" },
+    photoAlt: "Visitors using self-service kiosks in a bright public lobby",
+    photoPosition: "40% 50%",
+    icon: "mic",
+  },
+  {
+    id: "delivery",
+    slug: "delivery-automation",
+    name: "Delivery automation",
+    short: "Delivery",
+    capability: "Cloud, Data & AI Ops",
+    status: "Live",
+    statusNote: "Live: used in our own delivery work.",
+    headline: "A secure, reliable, affordable foundation for AI",
+    summary:
+      "Our infrastructure agent turns plain English into Terraform, checks for existing resources, then validates, lints and self-heals errors before deployment.",
+    speedsUp: "Cloud, Data & AI Ops",
+    result: "A secure, scalable foundation for every AI project",
+    challenge:
+      "AI that works in a demo often stalls before production. The data isn't ready, releases are manual, and nobody can say what it costs to run.",
+    does: [
+      "Build secure pipelines that feed AI with data you can trust",
+      "Automate releases and infrastructure, with security checks built in",
+      "Run AI models in your cloud or on your premises",
+      "Track usage and cost, so spend stays under control",
+    ],
+    changes: [
+      "A shorter path from pilot to production",
+      "Fewer manual release steps",
+      "Sensitive data kept under your control",
+      "Running costs you can see and plan for",
+    ],
+    proof: {
+      label: "Delivered · In production",
+      text: "Production scoring pipelines run as containerized services on Kubernetes, with central monitoring, logging and a complete audit trail at a leading AI computing company.",
     },
+    photo: img.datacentre,
+    photoAlt: "A quiet data-centre aisle lined with server racks and cabling",
+    photoPosition: "50% 50%",
+    icon: "layers",
   },
 ];
 
-export const proof = [
-  { sector: "Enterprise AI", lead: "", figure: "7→1", count: 0, tail: "", label: "Siloed AI assistants unified behind one governed entry point", href: "#work" },
-  { sector: "Knowledge AI", lead: "≥", figure: "95%", count: 95, tail: "%", label: "AI answers grounded and cited back to source", href: "#work" },
-  { sector: "Multi-institution rollout", lead: "", figure: "50k+", count: 50, tail: "k+", label: "People reached through one platform rollout", href: "#work" },
-  { sector: "Legacy modernisation", lead: "", figure: "100%", count: 100, tail: "%", label: "Scoring parity validated before a system cutover", href: "#work" },
+export const productBySlug = (slug: string) => products.find((p) => p.slug === slug);
+
+export const promises = [
+  { title: "Every answer shows its source", text: "People see where each answer comes from, so they can check it, trust it and act on it." },
+  { title: "Your people make the call", text: "AI does the legwork. A named person approves every important decision." },
+  { title: "Your data stays inside your walls", text: "We run in your cloud or on your premises, with the AI models you choose." },
 ];
 
-export type CaseSector = "enterprise" | "banking" | "workforce" | "education";
+export type Pain = {
+  q: string;
+  answer: string;
+  text: string;
+  links: { label: string; href: string }[];
+};
+
+// Each leadership concern from the deck's slide 2, paired with the deck's own answer to it
+// (slides 3, 4, 7, 9, 10 and 17).
+export const pains: Pain[] = [
+  {
+    q: "We ran the pilots. None made it into daily work.",
+    answer: "Start where the value is.",
+    text: "We choose the one or two AI uses worth doing, then build a working pilot on your real data, with real users, and measure it against today's baseline. AI in daily work, not in a lab.",
+    links: [{ label: "How we engage", href: "/v4#engage" }],
+  },
+  {
+    q: "I can't sign off on answers nobody can check.",
+    answer: "Every answer shows its source.",
+    text: "People see where each answer comes from, so they can check it, trust it and act on it. Atlas respects each person's access rights and logs every request, so auditors can check too.",
+    links: [{ label: "Mentis Atlas", href: "/v4/mentis/atlas" }],
+  },
+  {
+    q: "Our most sensitive data can't leave the building.",
+    answer: "Your data stays inside your walls.",
+    text: "We run in your cloud or on your premises, with the AI models you choose, inside your security and your sign-in. Sensitive data stays under your control.",
+    links: [{ label: "Delivery automation", href: "/v4/mentis/delivery-automation" }],
+  },
+  {
+    q: "Our best people are stuck on repetitive work and old systems.",
+    answer: "Less manual work, and no big-bang risk.",
+    text: "Hub brings your assistants behind one front door and lets AI finish tasks, with human approval where it matters. Renew moves old systems to a modern stack and proves the results match before you switch.",
+    links: [
+      { label: "Mentis Hub", href: "/v4/mentis/hub" },
+      { label: "Mentis Renew", href: "/v4/mentis/renew" },
+    ],
+  },
+  {
+    q: "I can't see what our AI costs, let alone control it.",
+    answer: "Keep its cost in plain sight.",
+    text: "We choose the right AI model for each job and track usage and cost, so spend stays visible and under control, not a surprise at the end of the quarter.",
+    links: [
+      { label: "Mentis Hub", href: "/v4/mentis/hub" },
+      { label: "Delivery automation", href: "/v4/mentis/delivery-automation" },
+    ],
+  },
+];
+
+export const industries = [
+  "Technology & semiconductors",
+  "Industrial manufacturing",
+  "Financial services",
+  "Education",
+  "Public sector & civic institutions",
+];
+
+export type CaseStatus = "Delivered · In production" | "In delivery" | "Built · Live demo" | "Proposal-stage";
 
 export type Case = {
-  sector: CaseSector;
-  sectorLabel: string;
+  id: string;
+  sector: string;
   service: string;
+  status: CaseStatus;
   metric: string;
   metricLabel: string;
   title: string;
   summary: string;
   tags: string[];
+  product?: string; // slug
   photo: StaticImageData;
   alt: string;
   position: string;
 };
 
-export const caseFilters: { id: "all" | CaseSector; label: string }[] = [
-  { id: "all", label: "All" },
-  { id: "enterprise", label: "Enterprise" },
-  { id: "banking", label: "Banking" },
-  { id: "workforce", label: "Workforce" },
-  { id: "education", label: "Education" },
-];
-
 export const cases: Case[] = [
   {
-    sector: "enterprise",
-    sectorLabel: "Global technology company",
-    service: "Agent orchestration",
-    metric: "7 → 1",
-    metricLabel: "AI assistants unified behind one governed entry point",
-    title: "Seven siloed assistants, one governed front door.",
+    id: "hub",
+    sector: "Leading AI computing company",
+    service: "Mentis Hub",
+    status: "Delivered · In production",
+    metric: "22 → 1",
+    metricLabel: "assistants on one platform, 20,130+ users, ≤750 ms P90",
+    title: "Twenty-two assistants, one governed front door.",
     summary:
-      "Seven separately built assistants now sit behind a single entry point, with routing, access control and an audit trail managed in one place.",
-    tags: ["Orchestration", "Access control", "Audit trail"],
+      "Separate assistants now run across Teams, Slack and web on one platform, with every backend preserved and shared safety rules.",
+    tags: ["Agent platform", "Routing", "Governance"],
+    product: "hub",
     photo: img.orchestration,
     alt: "Team reviewing a live agent-orchestration dashboard on a wall display",
     position: "60% 50%",
   },
   {
-    sector: "workforce",
-    sectorLabel: "Workforce development",
-    service: "Data and AI platform",
-    metric: "≥95%",
-    metricLabel: "of AI answers grounded and cited back to source",
-    title: "Regional workforce data and cited AI answers in one decision platform.",
+    id: "renew",
+    sector: "Leading AI computing company",
+    service: "Mentis Renew",
+    status: "Delivered · In production",
+    metric: "100%",
+    metricLabel: "scoring parity before any production traffic switched",
+    title: "Licensed pipelines rebuilt in the cloud, proven identical first.",
     summary:
-      "Labour-market data and a retrieval assistant in one place, where every answer cites its source so decision-makers can check it.",
-    tags: ["Retrieval", "Data platform", "Citations"],
-    photo: img.workforce,
-    alt: "Two analysts reviewing a regional workforce dashboard",
+      "Scoring pipelines were rebuilt as cloud-native services and run side by side with the old ones. About $20K a year in license cost was removed.",
+    tags: ["Modernization", "Parity testing", "Cloud-native"],
+    product: "renew",
+    photo: img.datacentre,
+    alt: "A quiet data-centre aisle lined with server racks and cabling",
     position: "50% 50%",
   },
   {
-    sector: "banking",
-    sectorLabel: "Financial services",
-    service: "Voice AI",
-    metric: "Human in the loop",
-    metricLabel: "An escalation path designed into every call flow",
-    title: "Voice AI for first-line banking calls, with human escalation built in.",
+    id: "atlas",
+    sector: "Leading AI computing company",
+    service: "Mentis Atlas",
+    status: "Delivered · In production",
+    metric: "3",
+    metricLabel: "knowledge assistants answering with citations",
+    title: "Answers across bug data, programs, email and meetings, each with its source.",
     summary:
-      "A conversational agent takes first-line customer calls in a regulated environment, and hands over to a person, with full context, whenever it should.",
-    tags: ["Voice AI", "Regulated", "Human escalation"],
-    photo: img.voice,
-    alt: "Contact-centre specialist working alongside an AI call console",
-    position: "62% 50%",
+      "Three knowledge assistants in production answer across bug data, program documents, email, meeting transcripts and customer requirements.",
+    tags: ["Knowledge", "Citations", "Access control"],
+    product: "atlas",
+    photo: img.office,
+    alt: "People working at desks in a large open-plan office",
+    position: "60% 50%",
   },
   {
-    sector: "education",
-    sectorLabel: "Education",
-    service: "Product engineering",
-    metric: "50k+",
-    metricLabel: "people reached through a multi-institution rollout",
-    title: "Meridian: alumni, school operations and AI learning on one open-source platform.",
+    id: "education",
+    sector: "Education",
+    service: "Learning platform",
+    status: "In delivery",
+    metric: "1 login",
+    metricLabel: "for nine roles across learning, school and alumni systems",
+    title: "A 60-year-old school that ran on paper, now on one open-source platform.",
     summary:
-      "One open-source platform for alumni relations, school operations and AI-assisted learning, rolled out across several institutions.",
-    tags: ["Open source", "Multi-institution", "AI learning"],
+      "Students learn and practice with AI tutors, and teachers run their classes in one place. The same platform runs administration and keeps alumni connected. Other schools can adopt it with no per-seat license fees.",
+    tags: ["AI tutors", "Open source", "School management"],
     photo: img.education,
     alt: "Students working on laptops in a bright university study hall",
     position: "40% 50%",
   },
+  {
+    id: "civic",
+    sector: "Cultural district",
+    service: "Mentis Voice",
+    status: "Built · Live demo",
+    metric: "10+",
+    metricLabel: "museums, gardens, orchestras and universities in one conversation",
+    title: "Scan a code, say what you'd like to do, get a personal itinerary.",
+    summary:
+      "Voice and chat event discovery with persona detection and cached answers in under a second. Working software, not yet client delivery.",
+    tags: ["Voice AI", "Civic", "Live demo"],
+    product: "voice-hr",
+    photo: img.civic,
+    alt: "Visitors using self-service kiosks in a bright public lobby",
+    position: "40% 50%",
+  },
+  {
+    id: "workforce",
+    sector: "Regional workforce",
+    service: "Data & AI platform",
+    status: "Proposal-stage",
+    metric: "120 days",
+    metricLabel: "pilot path. Targets, not results: ≥95% of claims cited to a source",
+    title: "One trusted view of a region's labor demand, supply and outcomes.",
+    summary:
+      "A fully specified pilot design in active proposal development: three analytic views and an AI Navigator that answers from the same data. Not delivered work.",
+    tags: ["Pilot targets", "Navigator", "People approve every step"],
+    photo: img.workforce,
+    alt: "Two analysts reviewing a regional workforce dashboard",
+    position: "50% 50%",
+  },
 ];
 
-export const solutions = [
-  {
-    no: "A1",
-    title: "AI systems",
-    link: "AI systems",
-    text: "Agents, orchestration, voice AI and retrieval, designed around how your teams actually work and governed from the first prototype.",
-    items: ["Agent orchestration", "Voice AI", "RAG and knowledge assistants", "AI governance"],
-    art: "ai",
-  },
-  {
-    no: "A2",
-    title: "Digital products",
-    link: "digital products",
-    text: "Web platforms, portals, APIs and internal tools, built with product thinking and the structure to stay maintainable long after launch.",
-    items: ["Web and mobile apps", "APIs and integrations", "Design systems", "Quality engineering"],
-    art: "product",
-  },
-  {
-    no: "A3",
-    title: "Production engineering",
-    link: "production engineering",
-    text: "Cloud foundations, release pipelines, workflow automation and operational data, so delivery stops firefighting and ships on a cadence.",
-    items: ["Cloud modernisation", "CI/CD and release controls", "Workflow automation", "Observability"],
-    art: "pipeline",
-  },
-] as const;
-
-export const products = [
-  {
-    id: "atlas",
-    name: "Mentis Atlas",
-    kind: "GRC knowledge copilot",
-    status: "Pilot" as Status,
-    text: "A governance, risk and compliance copilot that maps policies, controls and evidence, and answers with citations. Pilot figures are approved and anonymised.",
-    tags: ["Control map", "Evidence search", "Cited answers"],
-  },
-  {
-    id: "forge",
-    name: "Mentis Forge",
-    kind: "Engineering CAD copilot",
-    status: "Roadmap" as Status,
-    text: "A design copilot that drives engineering tools through governed steps, with approval at every gate. Offered as a design-partner programme.",
-    tags: ["Design agent", "Tool adapters", "Human gates"],
-  },
+export const proofBar = [
+  { value: 100, tail: "%", label: "scoring parity before a system was switched", tag: "Discipline" },
+  { value: 3, tail: " years", label: "one client has kept us on, with our engineers inside its own teams", tag: "Trust" },
+  { value: 20130, tail: "+", label: "users on one shared agent platform, measured in production", tag: "Scale" },
+  { value: 22, tail: "", label: "assistants, each grounded in a different enterprise system", tag: "Breadth" },
 ];
 
 export const steps = [
   {
     no: "01",
-    title: "Orient",
-    text: "We map the outcome, the workflow that has to change and the constraints around data, access and regulation.",
-    gate: "",
+    title: "Discover",
+    time: "Typically about 2 weeks",
+    text: "Choose the one or two AI uses worth doing. Check the data, the risks and who will use it.",
+    get: "A business case and a plan",
   },
   {
     no: "02",
-    title: "Chart",
-    text: "Architecture, review gates and a written Definition of Done are agreed before anything is built.",
-    gate: "Gate 1 · Plan approved",
+    title: "Prove",
+    time: "Typically 6–8 weeks",
+    text: "Build a working pilot on your real data, with real users.",
+    get: "Results measured against today's baseline",
   },
   {
     no: "03",
-    title: "Build",
-    text: "Short increments. Agents help code and test; a person reviews and signs off every release.",
-    gate: "Gates 2 and 3 · Code review, deploy sign-off",
+    title: "Scale",
+    time: "At your pace",
+    text: "Roll out to more teams and connect more systems.",
+    get: "AI in daily work, not in a lab",
   },
   {
     no: "04",
     title: "Hand over",
-    text: "Runbooks, documentation and training, so the team that operates the system truly owns it.",
-    gate: "",
+    time: "Your choice",
+    text: "We run and improve it for you or train your team to own it.",
+    get: "A system your team understands",
   },
 ];
 
-export const models = [
-  { name: "Embedded engineers", text: "Our engineers join your team and work inside your backlog, tools and release process." },
-  { name: "Delivery pod", text: "A lead and engineers with AI agents that plan, code and test, behind three human gates." },
-  { name: "Fixed outcome", text: "We own delivery to a written Definition of Done, from discovery through handoff." },
+// Ticks on the "what you have so far" card once each step is reached.
+export const doneItems = [
+  "Use cases chosen, risks checked",
+  "A business case and a plan",
+  "A working pilot on your real data",
+  "Results measured against today",
+  "AI in daily work",
+  "Handed over, run by you or by us",
+];
+
+export const why = [
+  { icon: "users", title: "Senior team throughout", text: "The people who scope the work are the people who build it." },
+  { icon: "check", title: "Production, not demos", text: "More than 11,000 users already work with what we've built." },
+  { icon: "layers", title: "Ready-made accelerators", text: "Our Mentis toolkit gives you a faster, safer start." },
+  { icon: "shield", title: "Inside your security", text: "Your cloud, your sign-in, your rules." },
+  { icon: "target", title: "Measured against today", text: "We prove the value before anything scales." },
+  { icon: "swap", title: "No lock-in", text: "Open standards and your choice of AI models." },
 ];
 
 export const footerNav = [
   {
-    title: "Solutions",
-    links: [
-      { label: "AI systems", href: "#solutions" },
-      { label: "Digital products", href: "#solutions" },
-      { label: "Production engineering", href: "#solutions" },
-    ],
-  },
-  {
-    title: "Work",
-    links: [
-      { label: "Case studies", href: "#work" },
-      { label: "AI demos", href: "#products" },
-      { label: "Start a project", href: "#start" },
-    ],
-  },
-  {
-    title: "Products",
-    links: [
-      { label: "Mentis Atlas", href: "#products" },
-      { label: "Mentis Forge", href: "#products" },
-      { label: "Mentis Interviews", href: "#products" },
-    ],
+    title: "Mentis products",
+    links: products.map((p) => ({ label: p.name, href: `/v4/mentis/${p.slug}` })),
   },
   {
     title: "Company",
     links: [
-      { label: "About", href: "#delivery" },
-      { label: "Contact", href: "#start" },
+      { label: "Case studies", href: "/v4#work" },
+      { label: "How we engage", href: "/v4#engage" },
+      { label: "Why BanjuBits", href: "/v4#why" },
+      { label: "Start a project", href: "/v4#start" },
+    ],
+  },
+  {
+    title: "Legal",
+    links: [
       { label: "Privacy", href: "#" },
       { label: "Terms", href: "#" },
     ],

@@ -1,18 +1,14 @@
-import { Belief } from "@/components/v3/Belief";
-import { Compare } from "@/components/v3/Compare";
+import { Engage } from "@/components/v3/Engage";
+import { Explorer } from "@/components/v3/Explorer";
 import { Footer } from "@/components/v3/Footer";
-import { Foundations } from "@/components/v3/Foundations";
-import { Gap } from "@/components/v3/Gap";
 import { Header } from "@/components/v3/Header";
+import { Hear } from "@/components/v3/Hear";
 import { Hero } from "@/components/v3/Hero";
 import { Sprite } from "@/components/v3/Icon";
-import { Insights } from "@/components/v3/Insights";
-import { Intro } from "@/components/v3/Intro";
 import { Motion } from "@/components/v3/Motion";
-import { Process } from "@/components/v3/Process";
-import { ProductsSection } from "@/components/v3/ProductsSection";
-import { ServicesSection } from "@/components/v3/ServicesSection";
-import { Work } from "@/components/v3/Work";
+import { Proof } from "@/components/v3/Proof";
+import { Start } from "@/components/v3/Start";
+import { Why } from "@/components/v3/Why";
 
 export default function HomeV3() {
   return (
@@ -25,16 +21,12 @@ export default function HomeV3() {
       <Header />
       <main id="dh-main">
         <Hero />
-        <Intro />
-        <Gap />
-        <Foundations />
-        <ServicesSection />
-        <Compare />
-        <Process />
-        <Work />
-        <ProductsSection />
-        <Insights />
-        <Belief />
+        <Explorer />
+        <Hear />
+        <Proof />
+        <Engage />
+        <Why />
+        <Start />
       </main>
       <Footer />
     </>

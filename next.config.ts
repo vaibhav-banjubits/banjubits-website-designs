@@ -4,9 +4,9 @@ const nextConfig: NextConfig = {
   /* config options here */
   cacheComponents: true,
   partialPrefetching: true,
-  // V1 is now the homepage at /.
+  // The homepage is V1; the other versions live at /v2 to /v6.
   async redirects() {
-    return [{ source: "/v1", destination: "/", permanent: false }];
+    return [{ source: "/", destination: "/v1", permanent: false }];
   },
   turbopack: {
     rules: {

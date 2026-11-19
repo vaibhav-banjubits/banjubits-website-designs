@@ -2,14 +2,14 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { doneItems, models, steps } from "./data";
+import { doneItems, steps } from "./data";
 import { Icon } from "./Icon";
 import { img } from "./images";
 
-// How many Definition-of-Done items are ticked once each step is reached.
-const TICKS = [1, 2, 4, 5];
+// How many "what you have so far" items are ticked once each step is reached.
+const TICKS = [2, 3, 5, 6];
 
-/** The delivery steps scroll past while a sticky Definition of Done ticks itself off. */
+/** How we engage: four steps scroll past while a sticky card tallies what you have at each stage. */
 export function Delivery() {
   const [step, setStep] = useState(0);
   const refs = useRef<(HTMLLIElement | null)[]>([]);
@@ -30,20 +30,20 @@ export function Delivery() {
   const pct = Math.round((ticked / doneItems.length) * 100);
 
   return (
-    <section id="delivery" className="hb-sec">
+    <section id="engage" className="hb-sec">
       <div className="hb-wrap">
         <div className="hb-head hb-rv">
           <div>
             <p className="hb-kicker">
-              <i /> How we deliver
+              <i /> How we engage
             </p>
             <h2 className="hb-h2">
-              Four steps. <em>A person approves every gate.</em>
+              Start small, prove value, <em>then scale.</em>
             </h2>
           </div>
           <p className="hb-head__side">
-            Plan, code-review and deploy gates are part of delivery from day one, not bolted on after
-            the system exists.
+            Fixed-scope starting points. Working software every week, not slide decks. The people who scope the work are
+            the people who build it.
           </p>
         </div>
 
@@ -60,23 +60,22 @@ export function Delivery() {
         </div>
 
         <div className="hb-deliv">
-          <aside className="hb-dod" aria-label="Definition of Done">
+          <aside className="hb-dod" aria-label="What you have so far">
             <div className="hb-dod__card">
               <div className="hb-dod__head">
-                <b>Definition of Done</b>
+                <b>What you have so far</b>
                 <span>{pct}%</span>
               </div>
               <div className="hb-dod__track" aria-hidden="true">
                 <i style={{ width: `${pct}%` }} />
               </div>
               <ul>
-                {doneItems.map((it, i) => (
-                  <li key={it.label} data-on={i < ticked || undefined}>
+                {doneItems.map((label, i) => (
+                  <li key={label} data-on={i < ticked || undefined}>
                     <i>
                       <Icon n="check" />
                     </i>
-                    <span>{it.label}</span>
-                    {it.gate && <em>{it.gate}</em>}
+                    <span>{label}</span>
                   </li>
                 ))}
               </ul>
@@ -97,23 +96,14 @@ export function Delivery() {
                 <span className="hb-step__no">{s.no}</span>
                 <div>
                   <h3 className="hb-h3">{s.title}</h3>
+                  <span className="hb-step__time">{s.time}</span>
                   <p>{s.text}</p>
-                  {s.gate && <span className="hb-step__gate">{s.gate}</span>}
+                  <span className="hb-step__gate">You get: {s.get}</span>
                 </div>
               </li>
             ))}
           </ol>
         </div>
-
-        <ul className="hb-models">
-          {models.map((m, i) => (
-            <li key={m.name} className="hb-rv" style={{ "--d": `${i * 80}ms` } as React.CSSProperties}>
-              <span className="hb-models__no">0{i + 1}</span>
-              <h3>{m.name}</h3>
-              <p>{m.text}</p>
-            </li>
-          ))}
-        </ul>
       </div>
     </section>
   );

@@ -14,7 +14,7 @@ import {
 import "./picker.css";
 
 /**
- * Palette + type selector for every homepage version (/, /v3 to /v7).
+ * Palette + type selector for every homepage version (/v1 to /v6).
  *
  * All colours and type pairings come from banjubits-brand-lab (see palettes.ts).
  * Picking one sets `--t-*` custom properties on <html>. Each version's CSS maps
@@ -26,13 +26,12 @@ import "./picker.css";
  */
 
 const VERSIONS = [
-  { href: "/", n: "V1", name: "Harbour Flow", sub: "Light, navy + teal, blueprint-led" },
-  { href: "/v3", n: "V3", name: "Deep Harbour", sub: "Dark hero, 3D orb, mint" },
-  { href: "/v2", n: "V2", name: "Home", sub: "Ledger · warm paper, saffron" },
-  { href: "/v4", n: "V4", name: "Cobalt", sub: "Bright, photo-led, white" },
-  { href: "/v5", n: "V5", name: "Ivory & Ink", sub: "Editorial, brass detailing, Fraunces" },
-  { href: "/v6", n: "V6", name: "Gilt", sub: "Work-first, serif italic accents" },
-  { href: "/v7", n: "V7", name: "Ledger Route", sub: "Ledger palette, compass-led, no hero" },
+  { href: "/v1", n: "V1", name: "Ledger Prompt", sub: "Prompt-first hero, live bento, sans only" },
+  { href: "/v2", n: "V2", name: "Maison", sub: "Original v3: navy + champagne gold, serif" },
+  { href: "/v3", n: "V3", name: "Deep Harbour", sub: "Product-led, navy + teal" },
+  { href: "/v4", n: "V4", name: "Harbour Flow", sub: "Light, navy + teal, blueprint-led" },
+  { href: "/v5", n: "V5", name: "Gilt", sub: "Work-first, serif italic accents" },
+  { href: "/v6", n: "V6", name: "Ledger Route", sub: "Ledger palette, compass-led, no hero" },
 ] as const;
 
 type Mode = "light" | "dark";

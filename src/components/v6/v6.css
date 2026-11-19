@@ -759,3 +759,8 @@ a:hover > .gl-go .gl-ic, a:hover .gl-go .gl-ic, .gl-go:hover .gl-ic { transform:
   .gl-root[data-js] .gl-eyebrow::after { transform: none; }
   .gl-mq__track { overflow-x: auto; }
 }
+
+/* Logo size matches V3 Deep Harbour: header clamp(1.8rem, 2.4vw, 2.2rem), footer 2rem, 8px bit. */
+.gl-hdr .gl-logo__word { font-size: clamp(1.8rem, 2.4vw, 2.2rem); }
+.gl-foot__brand .gl-logo__word { font-size: 2rem; }
+.gl-hdr .gl-logo__bit, .gl-foot__brand .gl-logo__bit { width: 8px; height: 8px; margin-left: 3px; }

@@ -4,24 +4,17 @@ import { useEffect, useState } from "react";
 import { Icon } from "./Icon";
 
 const NAV = [
-  { label: "Home", href: "#top" },
-  { label: "Work", href: "#work" },
-  { label: "Services", href: "#services" },
-  { label: "Approach", href: "#process" },
   { label: "Products", href: "#products" },
-  { label: "Insights", href: "#insights" },
+  { label: "Proof", href: "#proof" },
+  { label: "Approach", href: "#engage" },
+  { label: "Why us", href: "#why" },
 ];
-
-const MOBILE_NAV = NAV.filter((n) => n.href !== "#top").concat({
-  label: "Contact",
-  href: "#contact",
-});
 
 export function Header() {
   const [solid, setSolid] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
-  const [active, setActive] = useState("#top");
+  const [active, setActive] = useState("");
 
   // Solid once scrolled; tuck away on the way down, return on the way up.
   useEffect(() => {
@@ -30,7 +23,7 @@ export function Header() {
       const y = window.scrollY;
       setSolid(y > 24);
       if (Math.abs(y - last) > 8) {
-        setHidden(y > last && y > 420);
+        setHidden(y > last && y > 520);
         last = y;
       }
     };
@@ -60,7 +53,7 @@ export function Header() {
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
-    const mq = window.matchMedia("(min-width: 861px)");
+    const mq = window.matchMedia("(min-width: 981px)");
     const onMq = (e: MediaQueryListEvent) => e.matches && setOpen(false);
     document.addEventListener("keydown", onKey);
     mq.addEventListener("change", onMq);
@@ -80,12 +73,7 @@ export function Header() {
         className={`dh-hdr${solid ? " dh-is-solid" : ""}${hidden && !open ? " dh-is-hidden" : ""}`}
       >
         <div className="dh-hdr__in">
-          <a
-            href="#top"
-            className="dh-logo"
-            aria-label="Banjubits, back to top"
-            onClick={close}
-          >
+          <a href="#top" className="dh-logo" aria-label="Banjubits, back to top" onClick={close}>
             <span className="dh-logo__word">Banjubits</span>
             <span className="dh-logo__bit" aria-hidden="true" />
           </a>
@@ -103,8 +91,8 @@ export function Header() {
             ))}
           </nav>
 
-          <a href="#contact" className="dh-btn dh-btn--sm dh-hdr__cta">
-            <span>Start a project</span>
+          <a href="#start" className="dh-btn dh-btn--sm dh-hdr__cta">
+            <span>Book a session</span>
             <span className="dh-btn__chip">
               <Icon n="arrow-right" />
             </span>
@@ -123,21 +111,16 @@ export function Header() {
         </div>
       </header>
 
-      <div
-        className={`dh-menu${open ? " dh-is-open" : ""}`}
-        id="dh-menu"
-        aria-hidden={!open}
-        inert={!open}
-      >
+      <div className={`dh-menu${open ? " dh-is-open" : ""}`} id="dh-menu" aria-hidden={!open} inert={!open}>
         <nav aria-label="Mobile">
-          {MOBILE_NAV.map((n) => (
+          {NAV.map((n) => (
             <a key={n.href} href={n.href} onClick={close}>
               {n.label}
             </a>
           ))}
         </nav>
-        <a href="#contact" className="dh-btn" onClick={close}>
-          <span>Start a project</span>
+        <a href="#start" className="dh-btn" onClick={close}>
+          <span>Book a session</span>
           <span className="dh-btn__chip">
             <Icon n="arrow-right" />
           </span>

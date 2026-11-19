@@ -1,21 +1,18 @@
 "use client";
 
-import Image from "next/image";
-import { useEffect, useRef } from "react";
-import { useBlueprint } from "./Blueprint";
-import { industries, type Status } from "./data";
-import { Icon, industryIcon } from "./Icon";
-
-function Pill({ status }: { status: Status }) {
-  return <span className={`hb-pill hb-pill--${status.toLowerCase()}`}>{status}</span>;
-}
+import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
+import { Demo } from "./Demos";
+import { products, promises } from "./data";
+import { Icon } from "./Icon";
 
 const d = (ms: number) => ({ "--d": `${ms}ms` }) as React.CSSProperties;
 
 export function Hero() {
-  const { industry, setIndustry } = useBlueprint();
-  const cur = industries.find((i) => i.id === industry) ?? industries[0];
   const root = useRef<HTMLElement>(null);
+  const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const cur = products[active];
 
   // Pointer parallax: the stage tilts a few degrees and its floating pieces drift at different depths.
   useEffect(() => {
@@ -56,113 +53,106 @@ export function Hero() {
       <div className="hb-wrap hb-hero__in">
         <div className="hb-hero__copy">
           <p className="hb-kicker hb-up" style={d(0)}>
-            <i /> AI engineering and product studio
+            <i /> AI engineering company · Mentis accelerators
           </p>
           <h1 className="hb-h1 hb-up" style={d(80)}>
-            Production AI and digital platforms <em>built for real operations.</em>
+            We build AI into real business work, <em>in a way leadership can trust.</em>
           </h1>
           <p className="hb-lede hb-up" style={d(180)}>
-            We design, build and govern the systems your business runs on. Choose your industry and
-            see the draft we would start from, before you fill in a single form.
+            We design, build and run production AI for enterprises and institutions. Our own Mentis
+            accelerators get you to a working pilot in weeks, not months.
           </p>
 
-          <div className="hb-pick hb-up" style={d(260)}>
-            <p className="hb-pick__q" id="hb-pick-q">
-              Choose your industry
-            </p>
-            <div className="hb-chips" role="group" aria-labelledby="hb-pick-q">
-              {industries.map((i) => (
-                <button
-                  key={i.id}
-                  type="button"
-                  className="hb-chip"
-                  aria-pressed={i.id === industry}
-                  onClick={() => setIndustry(i.id)}
-                >
-                  <Icon n={industryIcon[i.id]} />
-                  {i.label}
-                </button>
-              ))}
-            </div>
-          </div>
+          <ul className="hb-prom hb-up" style={d(260)}>
+            {promises.map((p) => (
+              <li key={p.title}>
+                <Icon n="check" />
+                {p.title}
+              </li>
+            ))}
+          </ul>
 
           <div className="hb-actions hb-up" style={d(340)}>
-            <a href="#start" className="hb-btn" data-magnet>
+            <Link href="/v4#start" className="hb-btn" data-magnet>
               <span>Start a project</span>
               <span className="hb-btn__ic">
                 <Icon n="arrow" />
               </span>
-            </a>
-            <a href="#work" className="hb-btn hb-btn--ghost" data-magnet>
-              <span>See our results</span>
-            </a>
+            </Link>
+            <Link href="/v4#products" className="hb-btn hb-btn--ghost" data-magnet>
+              <span>Explore the Mentis products</span>
+            </Link>
           </div>
         </div>
 
         <div className="hb-stage hb-up" style={d(160)}>
           <div className="hb-stage__tilt">
             <i className="hb-stage__back" aria-hidden="true" />
-            <figure className="hb-stage__photo">
-              {industries.map((i, n) => (
-                <Image
-                  key={i.id}
-                  src={i.photo}
-                  alt={i.id === industry ? i.alt : ""}
-                  aria-hidden={i.id === industry ? undefined : true}
-                  fill
-                  sizes="(min-width: 1020px) 44vw, 100vw"
-                  priority={n === 0}
-                  loading="eager"
-                  data-on={i.id === industry || undefined}
-                  style={{ objectPosition: i.position }}
-                />
-              ))}
-              <span className="hb-stage__shade" aria-hidden="true" />
-            </figure>
-
-            <div className="hb-float hb-float--live" aria-hidden="true">
-              <span className="hb-dot" />
-              <span>
-                Live draft<b>{cur.label}</b>
-              </span>
-            </div>
-
-            <div className="hb-float hb-float--gate" aria-hidden="true">
-              <span className="hb-float__ic">
-                <Icon n="shield" />
-              </span>
-              <span>
-                Gate 3 · Deploy<b>Awaiting human sign-off</b>
-              </span>
-            </div>
-
-            <aside className="hb-bp" aria-live="polite" aria-label="Draft blueprint">
-              <div key={cur.id} className="hb-bp__body">
-                <div className="hb-bp__head">
-                  <span>Draft blueprint</span>
-                  <span className="hb-bp__ind">{cur.label}</span>
-                </div>
-                <h2 className="hb-bp__title">{cur.blueprint.title}</h2>
-                <ul className="hb-bp__list">
-                  {cur.blueprint.workstreams.map((w, n) => (
-                    <li key={w.name} style={{ "--n": n } as React.CSSProperties}>
-                      <span>{w.name}</span>
-                      <Pill status={w.status} />
-                    </li>
-                  ))}
-                </ul>
-                <div className="hb-bp__proof">
-                  <strong data-long={cur.blueprint.proof.figure.length > 7 || undefined}>
-                    {cur.blueprint.proof.figure}
-                  </strong>
-                  <span>{cur.blueprint.proof.label}</span>
-                </div>
-                <a href="#start" className="hb-bp__link">
-                  Open the full blueprint
-                  <Icon n="arrow" />
-                </a>
+            <div
+              className="hb-pstage"
+              data-paused={paused || undefined}
+              onMouseEnter={() => setPaused(true)}
+              onMouseLeave={() => setPaused(false)}
+              onFocus={() => setPaused(true)}
+              onBlur={() => setPaused(false)}
+            >
+              <div
+                className="hb-pstage__tabs"
+                role="tablist"
+                aria-label="Mentis products"
+                onKeyDown={(e) => {
+                  const dir = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+                  const jump = e.key === "Home" ? 0 : e.key === "End" ? products.length - 1 : null;
+                  if (!dir && jump === null) return;
+                  e.preventDefault();
+                  const next = jump ?? (active + dir + products.length) % products.length;
+                  setActive(next);
+                  e.currentTarget.querySelectorAll<HTMLElement>('[role="tab"]')[next]?.focus();
+                }}
+              >
+                {products.map((p, i) => (
+                  <button
+                    key={p.id}
+                    type="button"
+                    role="tab"
+                    id={`hb-tab-${p.id}`}
+                    aria-selected={i === active}
+                    aria-controls="hb-tabpanel"
+                    aria-label={p.name}
+                    title={p.name}
+                    tabIndex={i === active ? 0 : -1}
+                    className="hb-pstage__tab"
+                    onClick={() => setActive(i)}
+                  >
+                    <Icon n={p.icon} />
+                    <span className="hb-pstage__lbl">{p.short}</span>
+                  </button>
+                ))}
               </div>
-            </aside>
+              <i
+                key={active}
+                className="hb-pstage__bar"
+                aria-hidden="true"
+                onAnimationEnd={() => setActive((a) => (a + 1) % products.length)}
+              />
+              <div id="hb-tabpanel" role="tabpanel" aria-labelledby={`hb-tab-${cur.id}`} className="hb-pstage__panel">
+                <div key={cur.id} className="hb-pstage__demo">
+                  <Demo id={cur.id} />
+                </div>
+              </div>
+              <div className="hb-pstage__foot">
+                <div>
+                  <div className="hb-pstage__name">
+                    <b>{cur.name}</b>
+                    <span className={`hb-pill hb-pill--${cur.status.toLowerCase().replace(" ", "-")}`}>{cur.status}</span>
+                  </div>
+                  <p>{cur.summary}</p>
+                </div>
+                <Link href={`/v4/mentis/${cur.slug}`} className="hb-link">
+                  Explore <Icon n="arrow" />
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </div>

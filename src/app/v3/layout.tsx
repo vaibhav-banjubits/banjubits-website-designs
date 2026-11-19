@@ -1,42 +1,29 @@
 import type { Metadata } from "next";
-import { Instrument_Serif, JetBrains_Mono, Manrope } from "next/font/google";
+import { Inter, Inter_Tight } from "next/font/google";
 import "@/components/v3/v3.css";
 
-// Display: Instrument Serif (headlines, numerals, wordmark)
-// Text:    Manrope (body copy, UI, tracked small caps)
-// Mono:    JetBrains Mono (indices and code-like details)
-const display = Instrument_Serif({
-  variable: "--font-dh-serif",
+// Sans-serif only, by request: no serif fonts anywhere on this page.
+// Display: Inter Tight (headlines, numbers, the wordmark)
+// Text:    Inter (body copy, UI)
+const display = Inter_Tight({
+  variable: "--font-dh-display",
   subsets: ["latin"],
-  weight: "400",
-  style: ["normal", "italic"],
   display: "swap",
 });
-const text = Manrope({
+const text = Inter({
   variable: "--font-dh-text",
-  subsets: ["latin"],
-  display: "swap",
-});
-const mono = JetBrains_Mono({
-  variable: "--font-dh-mono",
   subsets: ["latin"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Banjubits | AI engineering and product studio",
+  title: "BanjuBits | AI built into real business work",
   description:
-    "Banjubits is an AI engineering and product studio. We design, build and ship AI systems, digital products and cloud platforms for enterprises and growing companies.",
+    "BanjuBits is an AI engineering company. We build AI into real business work, in a way leadership can trust, with Mentis accelerators that get you to a working pilot in weeks.",
   // An alternate homepage concept: keep it out of search until it replaces the live one.
   robots: { index: false, follow: false },
 };
 
 export default function V3Layout({ children }: LayoutProps<"/v3">) {
-  return (
-    <div
-      className={`dh-root ${display.variable} ${text.variable} ${mono.variable}`}
-    >
-      {children}
-    </div>
-  );
+  return <div className={`dh-root ${display.variable} ${text.variable}`}>{children}</div>;
 }

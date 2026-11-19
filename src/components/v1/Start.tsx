@@ -1,15 +1,14 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
-import { useBlueprint } from "./Blueprint";
 import { email, footerNav, industries, linkedin } from "./data";
-import { Icon, industryIcon } from "./Icon";
+import { Icon } from "./Icon";
 import { Logo } from "./Logo";
 
 export function Start() {
-  const { industry, setIndustry } = useBlueprint();
+  const [industry, setIndustry] = useState(industries[0]);
   const [sent, setSent] = useState(false);
-  const cur = industries.find((i) => i.id === industry) ?? industries[0];
 
   return (
     <section id="start" className="hb-sec hb-sec--tight">
@@ -23,20 +22,20 @@ export function Start() {
                 <i /> Start a project
               </p>
               <h2 className="hb-h2">
-                Tell us the outcome. <em>We will map the route.</em>
+                Bring one business problem. <em>Leave with a plan.</em>
               </h2>
               <p className="hb-lede">
-                One short form. Your industry and the problem go in; a draft blueprint and a named
-                person come back.
+                A 90-minute working session. You will leave with the AI options, the risks and the shape of a first
+                pilot. References are available under NDA.
               </p>
               <ul className="hb-ticks">
                 <li>
                   <Icon n="check" />
-                  Four fields, no procurement paperwork
+                  Fixed-scope starting points, no lock-in
                 </li>
                 <li>
                   <Icon n="check" />
-                  Draft architecture, workstreams and risks first
+                  Working software every week, not slide decks
                 </li>
                 <li>
                   <Icon n="check" />
@@ -52,8 +51,8 @@ export function Start() {
                 </span>
                 <h3 className="hb-h3">Thanks, that is the form working.</h3>
                 <p>
-                  This is a design concept, so nothing was sent. On the live site this would save a
-                  lead with your industry ({cur.label}) and source page, then confirm by email.
+                  This is a design concept, so nothing was sent. On the live site this would save a lead with your
+                  industry ({industry}) and source page, then confirm by email.
                 </p>
                 <button type="button" className="hb-btn hb-btn--ghost" onClick={() => setSent(false)}>
                   <span>Back to the form</span>
@@ -73,14 +72,13 @@ export function Start() {
                   <div className="hb-chips hb-chips--sm">
                     {industries.map((i) => (
                       <button
-                        key={i.id}
+                        key={i}
                         type="button"
                         className="hb-chip"
-                        aria-pressed={i.id === industry}
-                        onClick={() => setIndustry(i.id)}
+                        aria-pressed={i === industry}
+                        onClick={() => setIndustry(i)}
                       >
-                        <Icon n={industryIcon[i.id]} />
-                        {i.label}
+                        {i}
                       </button>
                     ))}
                   </div>
@@ -96,7 +94,7 @@ export function Start() {
                   </label>
                 </div>
                 <label className="hb-field">
-                  <span>What do you want to change?</span>
+                  <span>What is the business problem?</span>
                   <textarea
                     name="problem"
                     rows={4}
@@ -128,14 +126,14 @@ export function Footer() {
           <div className="hb-foot__brand">
             <Logo />
             <p>
-              An AI engineering and product studio. We design, build and govern production AI
-              systems and platforms.
+              An AI engineering company. We design, build and run production AI for enterprises and institutions, with
+              your people in charge.
             </p>
             <p className="hb-foot__social">
-              <a href={`mailto:${email}`} aria-label="Email Banjubits">
+              <a href={`mailto:${email}`} aria-label="Email BanjuBits">
                 <Icon n="mail" />
               </a>
-              <a href={linkedin} aria-label="Banjubits on LinkedIn" target="_blank" rel="noreferrer">
+              <a href={linkedin} aria-label="BanjuBits on LinkedIn" target="_blank" rel="noreferrer">
                 <Icon n="linkedin" />
               </a>
             </p>
@@ -146,7 +144,7 @@ export function Footer() {
               <ul>
                 {g.links.map((l) => (
                   <li key={l.label}>
-                    <a href={l.href}>{l.label}</a>
+                    <Link href={l.href}>{l.label}</Link>
                   </li>
                 ))}
               </ul>
@@ -154,8 +152,8 @@ export function Footer() {
           ))}
         </div>
         <div className="hb-foot__base">
-          <span>© 2026 Banjubits. Client work is anonymised to sector.</span>
-          <span>Govern · Ground · Humans decide</span>
+          <span>© 2026 BanjuBits. Client work is anonymised.</span>
+          <span>Every answer shows its source · Your people make the call · Your data stays inside your walls</span>
         </div>
       </div>
       <div className="hb-foot__mark" aria-hidden="true">

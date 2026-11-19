@@ -1,34 +1,34 @@
-import SiteHeader from "@/components/SiteHeader";
+import { Footer } from "@/components/maison/Footer";
+import { Header } from "@/components/maison/Header";
+import { Hero } from "@/components/maison/Hero";
+import { Sprite } from "@/components/maison/Icon";
+import { Motion } from "@/components/maison/Motion";
 import {
-  About,
   Approach,
-  ContactFooter,
-  Hero,
-  Insights,
   Products,
-  Sectors,
-  Services,
+  Questions,
+  Why,
   Work,
-} from "@/components/Home";
+} from "@/components/maison/Sections";
 
-export default function HomeV2() {
+export default function HomeMaison() {
   return (
     <>
-      <a href="#main" className="skip">
+      <Sprite />
+      <a className="mn-skip" href="#mn-main">
         Skip to content
       </a>
-      <SiteHeader />
-      <main id="main">
+      <Motion />
+      <Header />
+      <main id="mn-main">
         <Hero />
-        <Sectors />
-        <About />
-        <Work />
-        <Services />
-        <Approach />
         <Products />
-        <Insights />
+        <Questions />
+        <Work />
+        <Approach />
+        <Why />
       </main>
-      <ContactFooter />
+      <Footer />
     </>
   );
 }

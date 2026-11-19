@@ -1,27 +1,28 @@
-import { Approach } from "@/components/v5/Approach";
-import { Closing, Footer } from "@/components/v5/Closing";
-import { Header } from "@/components/v5/Header";
-import { Hero } from "@/components/v5/Hero";
-import { Insights } from "@/components/v5/Insights";
-import { Motion } from "@/components/v5/Motion";
-import { Products } from "@/components/v5/Products";
-import { Proof } from "@/components/v5/Proof";
-import { Services } from "@/components/v5/Services";
-import { Work } from "@/components/v5/Work";
+import { Approach } from "@/components/v6/Approach";
+import { Capabilities } from "@/components/v6/Capabilities";
+import { Closing, Footer } from "@/components/v6/Closing";
+import { Header } from "@/components/v6/Header";
+import { Hero } from "@/components/v6/Hero";
+import { Insights } from "@/components/v6/Insights";
+import { Motion } from "@/components/v6/Motion";
+import { Products } from "@/components/v6/Products";
+import { Sectors } from "@/components/v6/Sectors";
+import { Work } from "@/components/v6/Work";
 
-export default function HomeV5() {
+export default function HomeV6() {
   return (
     <>
-      <a className="lx-skip" href="#lx-main">
+      <a className="gl-skip" href="#gl-main">
         Skip to content
       </a>
+      <div className="gl-prog" aria-hidden="true" />
       <Motion />
       <Header />
-      <main id="lx-main">
+      <main id="gl-main">
         <Hero />
-        <Proof />
         <Work />
-        <Services />
+        <Capabilities />
+        <Sectors />
         <Approach />
         <Products />
         <Insights />

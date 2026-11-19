@@ -1,14 +1,15 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import { cases } from "./data";
 import { Icon } from "./Icon";
 
 /**
- * An interactive showcase: four cases as a list, one open at a time, with a large photo and the
+ * An interactive showcase: six engagements as a list, one open at a time, with a large photo and the
  * result alongside. It advances on its own (paused while hovered or focused) and respects
- * prefers-reduced-motion by not advancing at all.
+ * prefers-reduced-motion by not advancing at all. Each carries an honest status.
  */
 export function Cases() {
   const [active, setActive] = useState(0);
@@ -28,7 +29,7 @@ export function Cases() {
             </h2>
           </div>
           <p className="hb-head__side">
-            Client names are anonymised to sector. The figures are the ones already published.
+            Clients are anonymised. Each case is labelled: delivered, in delivery, a live demo, or still a proposal.
           </p>
         </div>
 
@@ -42,7 +43,7 @@ export function Cases() {
         >
           <div className="hb-show__panel" aria-live="polite">
             {cases.map((c, i) => (
-              <div key={c.title} className="hb-show__slide" data-on={i === active || undefined}>
+              <div key={c.id} className="hb-show__slide" data-on={i === active || undefined}>
                 <Image
                   src={c.photo}
                   alt={i === active ? c.alt : ""}
@@ -54,8 +55,8 @@ export function Cases() {
               </div>
             ))}
             <span className="hb-show__shade" aria-hidden="true" />
-            <span className="hb-show__tag">{cur.sectorLabel}</span>
-            <div key={cur.title} className="hb-show__metric">
+            <span className="hb-show__tag">{cur.sector}</span>
+            <div key={cur.id} className="hb-show__metric">
               <strong data-long={cur.metric.length > 7 || undefined}>{cur.metric}</strong>
               <span>{cur.metricLabel}</span>
             </div>
@@ -65,7 +66,7 @@ export function Cases() {
             {cases.map((c, i) => {
               const on = i === active;
               return (
-                <li key={c.title} className="hb-row" data-on={on || undefined}>
+                <li key={c.id} className="hb-row" data-on={on || undefined}>
                   <button
                     type="button"
                     className="hb-row__btn"
@@ -75,7 +76,9 @@ export function Cases() {
                   >
                     <span className="hb-row__no">0{i + 1}</span>
                     <span className="hb-row__t">
-                      <small>{c.service}</small>
+                      <small>
+                        {c.service} · {c.status}
+                      </small>
                       {c.title}
                     </span>
                   </button>
@@ -87,9 +90,15 @@ export function Cases() {
                           <li key={t}>{t}</li>
                         ))}
                       </ul>
-                      <a href="#start" className="hb-link">
-                        Read the case study <Icon n="arrow" />
-                      </a>
+                      {c.product ? (
+                        <Link href={`/v4/mentis/${c.product}`} className="hb-link">
+                          See the product <Icon n="arrow" />
+                        </Link>
+                      ) : (
+                        <Link href="/v4#start" className="hb-link">
+                          Start a similar project <Icon n="arrow" />
+                        </Link>
+                      )}
                     </div>
                   </div>
                   {on && (

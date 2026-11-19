@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { NAV } from "./data";
 import { Icon } from "./Icon";
@@ -8,6 +9,22 @@ import { Logo } from "./Logo";
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState("");
+
+  // Scroll-spy: highlight the nav item for the section in the middle of the screen (homepage only).
+  useEffect(() => {
+    const ids = NAV.map((n) => n.href.split("#")[1]).filter(Boolean);
+    const els = ids.map((id) => document.getElementById(id)).filter((el): el is HTMLElement => !!el);
+    if (!els.length) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) if (e.isIntersecting) setActive(e.target.id);
+      },
+      { rootMargin: "-45% 0px -50% 0px" },
+    );
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -37,22 +54,26 @@ export function Header() {
   return (
     <header className="hb-hdr" data-scrolled={scrolled || undefined} data-open={open || undefined}>
       <div className="hb-hdr__bar hb-wrap">
-        <a href="#top" className="hb-hdr__logo" aria-label="Banjubits, back to top" onClick={close}>
+        <Link href="/v4" className="hb-hdr__logo" aria-label="Banjubits home" onClick={close}>
           <Logo />
-        </a>
+        </Link>
 
         <nav className="hb-hdr__nav" aria-label="Primary">
           {NAV.map((n) => (
-            <a key={n.label} href={n.href}>
+            <Link
+              key={n.label}
+              href={n.href}
+              aria-current={active && n.href.endsWith(`#${active}`) ? "true" : undefined}
+            >
               {n.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
         <div className="hb-hdr__end">
-          <a href="#start" className="hb-btn hb-btn--sm hb-hdr__cta">
+          <Link href="/v4#start" className="hb-btn hb-btn--sm hb-hdr__cta">
             Start a project
-          </a>
+          </Link>
           <button
             type="button"
             className="hb-hdr__burger"
@@ -71,18 +92,18 @@ export function Header() {
       <div id="hb-menu" className="hb-menu" hidden={!open}>
         <nav aria-label="Mobile">
           {NAV.map((n, i) => (
-            <a key={n.label} href={n.href} onClick={close}>
+            <Link key={n.label} href={n.href} onClick={close}>
               <span>0{i + 1}</span>
               {n.label}
-            </a>
+            </Link>
           ))}
         </nav>
-        <a href="#start" className="hb-btn hb-menu__cta" onClick={close}>
+        <Link href="/v4#start" className="hb-btn hb-menu__cta" onClick={close}>
           Start a project
           <span className="hb-btn__ic">
             <Icon n="arrow" />
           </span>
-        </a>
+        </Link>
       </div>
     </header>
   );

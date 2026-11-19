@@ -1,11 +1,11 @@
-import { sectors } from "./data";
+import { industries } from "./data";
 
-/** A slow, endless ribbon of the sectors we have shipped in (no client logos exist yet). */
+/** A slow ribbon of the industries named in the capabilities deck (no client logos exist yet). */
 export function Marquee() {
   const row = (hidden: boolean) => (
     <ul className="hb-marq__row" aria-hidden={hidden || undefined}>
-      {sectors.map((s) => (
-        <li key={s}>
+      {[...industries, ...industries].map((s, i) => (
+        <li key={`${s}-${i}`}>
           <i />
           {s}
         </li>
@@ -13,7 +13,7 @@ export function Marquee() {
     </ul>
   );
   return (
-    <section className="hb-marq" aria-label="Sectors we have worked in">
+    <section className="hb-marq" aria-label="Industries we work in">
       <div className="hb-marq__track">
         {row(false)}
         {row(true)}

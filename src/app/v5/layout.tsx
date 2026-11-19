@@ -1,19 +1,21 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Geist } from "next/font/google";
-import "@/components/v5/v5.css";
+import { Instrument_Sans, Newsreader } from "next/font/google";
+import "@/components/v6/v6.css";
 
-// v5 "Ivory & Ink": ivory paper, midnight ink, champagne-brass detailing.
-// Fraunces (high optical size) for display, Geist for text and UI.
-const display = Fraunces({
-  variable: "--font-lx-display",
+// v6 "Gilt & Petrol": limestone paper, deep petrol ink and a restrained gilt accent.
+// Instrument Sans carries headlines and UI; Newsreader italic is the single serif accent.
+const sans = Instrument_Sans({
+  variable: "--font-gl-sans",
   subsets: ["latin"],
-  axes: ["opsz"],
+  axes: ["wdth"],
   display: "swap",
 });
 
-const sans = Geist({
-  variable: "--font-lx-sans",
+const serif = Newsreader({
+  variable: "--font-gl-serif",
   subsets: ["latin"],
+  style: ["italic"],
+  axes: ["opsz"],
   display: "swap",
 });
 
@@ -26,9 +28,9 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f6f4ef",
+  themeColor: "#edece5",
 };
 
-export default function V5Layout({ children }: LayoutProps<"/v5">) {
-  return <div className={`lx-root ${display.variable} ${sans.variable}`}>{children}</div>;
+export default function V6Layout({ children }: LayoutProps<"/v5">) {
+  return <div className={`gl-root ${sans.variable} ${serif.variable}`}>{children}</div>;
 }

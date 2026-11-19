@@ -1,32 +1,46 @@
-# Homepage v1 (`/v1`): "Harbour Flow"
+# Homepage (`/`): "Harbour Flow", product-led rebuild
 
-Built from `Banjubits-Brand-Direction.html` and the Brand Lab. Follows the doc's recommendation: **04 Deep Harbour** (navy `#0F2D52` + teal), **Manrope headings + Inter body**, the **blueprint-led homepage (concept C)** with B's proof right under the hero and A's product cards further down. Seven sections, one main action ("Start a project").
+Visual language: Deep Harbour (navy + teal), Manrope + Inter, aurora hero, deep-navy slabs, glass and gradients (see `v1.css`). Rebuilt on 19 Nov 2026 as a **product-led** homepage after the 18 Nov team call ("School & website - updates" in Fireflies) and `BanjuBits_Capabilities_Provato_Deck.pptx`.
 
-First pass (drafting-grid, hairline boxes, mono labels) was judged "too basic and mechanical", so this is the second pass: light and bright like before, but with depth, motion and interactive demos. `/v3` was the reference for "modern and impressive" (dark, gold, serif, 3D orb); v1 deliberately shares none of that look.
+## What the team asked for (and where it is)
 
-## Sections
+- **Say what we do, in plain words.** Hero: "We build AI into real business work, in a way leadership can trust", the three promises, and a live **product stage** that cycles through the six Mentis products with a small demo each (`Hero.tsx`, `Demos.tsx`).
+- **Product-led.** The six accelerators come straight after the hero (`Products.tsx`), each linking to its own page.
+- **Each product has its own page** with a demo, an explainer-video slot, challenge / what we do / what changes, proof, and links to the others: `/mentis/[slug]` (`ProductPage.tsx`, `app/(v1)/mentis/[slug]/page.tsx`). Slugs: atlas, hub, renew, forge, voice-hr, delivery-automation.
+- **Proof strip demoted.** B Kumar was "not a fan", so it moved below the products, pains and case studies and became "What our engagements prove" (`Proof.tsx`).
+- **Not anchored on the Brand Lab kit.** The blueprint-led hero, industry picker, "draft blueprint" card and bento were removed. Structure is the deck's story.
+- **Deck anchors the content.** Pains and answer (slide 2), capabilities and accelerators (4-5), per-product challenge/what we do/changes/proof (7-12), case studies incl. education, civic and workforce (13-16), engagement steps (17), why us and industries (18), next step (19).
 
-1. **Hero**: drifting aurora, big headline with a slow gradient on the accent words, an industry picker (Enterprise, Banking, Workforce, Education, Civic) that swaps the photo and a glass **draft blueprint card** (workstreams with Live / Pilot / Roadmap pills + a proof figure). The photo stage tilts with the pointer and its floating glass pieces drift at different depths. The pick carries down to the form (`Blueprint.tsx`).
-2. **Marquee** of sectors, then the **proof stage**: a deep-navy slab with 7→1, ≥95%, 50k+, 100% counting up (published figures only).
-3. **Case showcase**: four cases as a list, one open at a time, big photo with the result on a glass card. Auto-advances every 7 s (paused on hover/focus, off under reduced motion).
-4. **What we do**: a bento of three animated illustrations (agents routed through one governed gate, an app with a live chart, a pipeline with human gates) plus a navy "Govern. Ground. Humans decide." tile.
-5. **Products** (navy slab): Atlas (Pilot) as an HTML mock where a cited answer writes itself in; Forge (Roadmap) with a **pressable "Approve gate 2"** button. Mentis Interviews gets a line and there is a status legend.
-6. **How we deliver**: wide working-session photo, then four steps scrolling past a sticky **Definition of Done** that ticks itself (20% → 100%) as each step reaches the middle of the screen. Three engagement models below.
-7. **Start a project**: teal-navy gradient slab with one short form. It sends nothing (concept build) and says so.
+## Section order
 
-Nav follows the doc's proposed menu: Solutions, Case studies, AI demos, Products, About, Start a project.
+Hero (product stage) → industries ribbon → Mentis products → what we hear from leadership + our answer → case studies (6, each honestly labelled) → what our engagements prove → how we engage (sticky "what you have so far" ticks as you scroll) → why BanjuBits, three promises, industries → start a project (90-minute working session) → footer.
+
+## Status labels: check these
+
+All in `data.ts` (`products[].status` and `statusNote`). They are my reading of the deck plus the Brand Lab, not confirmed by the team:
+Atlas **Pilot**, Hub **Live**, Renew **Live**, Forge **Roadmap**, Voice & HR **In development** (HR is live internally, Voice has a live demo), Delivery automation **Live**. Case statuses: delivered / in delivery / built · live demo / proposal-stage (the deck's own wording).
+
+## Before launch
+
+- **Deck figures disagree with each other and with the old site.** Slide 9: 22 assistants, 20,130+ users; slide 18: "more than 11,000 users"; the previously published figure was 7→1 assistants. The site uses slide 9 for Hub and slide 18 for the "why us" line. Pick one and align.
+- The deck is marked **Confidential** and says references are under NDA. Check that these figures and the $20K licence saving are cleared for public use.
+- Product demos are illustrative HTML (tagged "Illustrative"). The explainer video slots say "coming soon". The doc and the team both want real product screenshots and videos (storytelling, professional, possibly real people).
+- The "Start a project" form sends nothing. Footer legal links point at `#`. Logo is a placeholder (another session has since changed it).
+- Photos are the shared AI-generated studio set.
+- `noindex` was removed when this became the homepage (route group `(v1)`).
+
+## Refinement pass (19 Nov)
+
+- "What we hear from leadership teams" is now a **they-say / we-answer** pairing (`Pains.tsx`): five concerns from the deck's slide 2, each with its own answer panel and links to the relevant product or section; arrow-key navigable. "Why leadership teams choose us" is now an editorial layout (`Why.tsx`): sticky statement and industries on the left, six borderless reasons on the right, and the three promises as a full-width navy band. The earlier white-card grids were replaced because they repeated the product-card look.
+- Hero stage tabs are one compact row (icon-only, the active one shows its name), arrow/Home/End keyboard navigation, roving tabindex; demo panel height held steady so the stage no longer jumps.
+- Header scroll-spy highlights the section you are in.
+- Tighter vertical rhythm; shorter engagement steps; product cards show how well each is evidenced (e.g. "Delivered · In production").
+- Proof numbers resized so 20,130+ and "3 years" fit their cards.
+- Open Graph metadata and Organization JSON-LD added.
+- Removed ~95 dead CSS rules and three unused components (old bento, blueprint card, industry picker context).
 
 ## Notes
 
-- Self-contained: own CSS (`v1.css`, prefix `hb-`, scoped under `.hb-root`), components and photos in `src/assets/v1/`.
+- Self-contained: `v1.css` (original layout) + `products.css` (product-led additions), prefix `hb-`, scoped under `.hb-root`; photos in `src/assets/v1/`.
 - Colours read the shared `--t-*` palette-selector tokens with Deep Harbour (light) as the fallback.
-- Motion is progressive: content shows without JS, and everything is off under `prefers-reduced-motion`.
-- `noindex` until it replaces the live page.
-
-## Before launch (draft copy to check)
-
-- Blueprint workstreams and their Live / Pilot / Roadmap labels per industry (`data.ts`). Proof figures are the ones already published; Banking and Civic have no published number so they show "Human in the loop" and "100%".
-- Atlas and Forge visuals are illustrative HTML mocks, labelled as such. The doc wants real product screenshots and demo clips.
-- "Mentis Interviews" has no status label because none is stated in the doc.
-- Logo is a placeholder. Case, product and footer links point to `#start` / `#`. The form needs the lead automation behind it.
-- Photos are the shared AI-generated studio set.
+- Motion is progressive and off under `prefers-reduced-motion`. Demos replay on mount; the hero stage auto-advances every 8 s and pauses on hover/focus.

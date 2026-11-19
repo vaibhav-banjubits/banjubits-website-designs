@@ -1,33 +1,39 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Instrument_Serif } from "next/font/google";
-import "@/components/v4/v4.css";
+import { Inter, Manrope } from "next/font/google";
+import "@/components/v1/v1.css";
+import "@/components/v1/products.css";
 
-// v4 "Atelier": editorial. Instrument Serif for display, Geist for text and labels.
-const sans = Geist({
-  variable: "--font-sg-sans",
+// Deep Harbour (navy + teal) from the Brand Direction doc, Manrope headings with Inter body.
+const display = Manrope({
+  variable: "--font-hb-display",
   subsets: ["latin"],
+  weight: ["500", "600", "700", "800"],
   display: "swap",
 });
-const serif = Instrument_Serif({
-  variable: "--font-sg-serif",
+
+const text = Inter({
+  variable: "--font-hb-text",
   subsets: ["latin"],
-  weight: "400",
-  style: ["normal", "italic"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Banjubits | AI engineering and product studio",
+  title: "BanjuBits | We build AI into real business work",
   description:
-    "Banjubits is an AI engineering and product studio. We design, build and ship AI systems, digital products and cloud platforms for enterprises and growing companies.",
-  // An alternate homepage concept: keep it out of search until it replaces the live one.
-  robots: { index: false, follow: false },
+    "BanjuBits is an AI engineering company. We design, build and run production AI for enterprises and institutions, with our Mentis accelerators for a faster, safer start.",
+  openGraph: {
+    type: "website",
+    siteName: "BanjuBits",
+    title: "BanjuBits | We build AI into real business work",
+    description:
+      "Production AI for enterprises and institutions: knowledge copilots, agent platforms, modernization, engineering design AI and voice agents, with your people in charge.",
+  },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f1eee8",
+  themeColor: "#f5f7fa",
 };
 
-export default function V4Layout({ children }: LayoutProps<"/v4">) {
-  return <div className={`sg-root ${sans.variable} ${serif.variable}`}>{children}</div>;
+export default function HomeLayout({ children }: { children: React.ReactNode }) {
+  return <div className={`hb-root ${display.variable} ${text.variable}`}>{children}</div>;
 }

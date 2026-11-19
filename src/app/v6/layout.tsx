@@ -1,20 +1,21 @@
 import type { Metadata, Viewport } from "next";
-import { Instrument_Sans, Newsreader } from "next/font/google";
-import "@/components/v6/v6.css";
+import { Fraunces, Plus_Jakarta_Sans } from "next/font/google";
+import "@/components/v7/v7.css";
+import "@/components/v7/luxe.css";
 
-// v6 "Gilt & Petrol": limestone paper, deep petrol ink and a restrained gilt accent.
-// Instrument Sans carries headlines and UI; Newsreader italic is the single serif accent.
-const sans = Instrument_Sans({
-  variable: "--font-gl-sans",
+// v7 "Ledger Route": the brand lab's Ledger palette (warm paper, ink, deep orange) on a
+// navigation-led page structure. Plus Jakarta Sans carries the UI and body copy; Fraunces,
+// the serif the brand lab pairs with Ledger, carries headlines, figures and quotes.
+const sans = Plus_Jakarta_Sans({
+  variable: "--font-rt-sans",
   subsets: ["latin"],
-  axes: ["wdth"],
   display: "swap",
 });
 
-const serif = Newsreader({
-  variable: "--font-gl-serif",
+const serif = Fraunces({
+  variable: "--font-rt-serif",
   subsets: ["latin"],
-  style: ["italic"],
+  style: ["normal", "italic"],
   axes: ["opsz"],
   display: "swap",
 });
@@ -28,9 +29,9 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#edece5",
+  themeColor: "#faf7f0",
 };
 
-export default function V6Layout({ children }: LayoutProps<"/v6">) {
-  return <div className={`gl-root ${sans.variable} ${serif.variable}`}>{children}</div>;
+export default function V7Layout({ children }: { children: React.ReactNode }) {
+  return <div className={`rt-root ${sans.variable} ${serif.variable}`}>{children}</div>;
 }

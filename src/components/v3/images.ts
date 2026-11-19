@@ -12,6 +12,9 @@ import pservers from "@/assets/v3/servers.webp";
 import pteamCode from "@/assets/v3/team-code.webp";
 import pteamScreen from "@/assets/v3/team-screen.webp";
 import pworkshop from "@/assets/v3/workshop.webp";
+import peducation from "@/assets/v3/education.webp";
+import pcivic from "@/assets/v3/civic.webp";
+import pworkforce from "@/assets/v3/workforce.webp";
 
 export const img = {
   "ai-3d": pai3d,
@@ -28,4 +31,7 @@ export const img = {
   "team-code": pteamCode,
   "team-screen": pteamScreen,
   workshop: pworkshop,
+  education: peducation,
+  civic: pcivic,
+  workforce: pworkforce,
 } as const;

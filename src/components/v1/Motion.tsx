@@ -55,7 +55,7 @@ export function Motion() {
             el.textContent = "0";
             const tick = (t: number) => {
               const p = Math.min(1, Math.max(0, (t - t0) / 1600));
-              el.textContent = String(Math.round(end * (1 - Math.pow(1 - p, 4))));
+              el.textContent = Math.round(end * (1 - Math.pow(1 - p, 4))).toLocaleString("en-US");
               if (p < 1) rafs.add(requestAnimationFrame(tick));
             };
             rafs.add(requestAnimationFrame(tick));
