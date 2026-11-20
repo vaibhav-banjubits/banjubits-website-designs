@@ -10,9 +10,8 @@ export function Proof() {
         <div className="hb-wrap">
           <div className="hb-proof__head hb-rv">
             <p className="hb-kicker hb-kicker--dark">
-              <i /> What our engagements prove
+              <i /> Pilots that reached production
             </p>
-            <p className="hb-proof__sub">Many enterprise AI pilots never reach production. Ours did.</p>
           </div>
           <ul className="hb-proof__list">
             {proofBar.map((p, i) => (
@@ -28,10 +27,6 @@ export function Proof() {
               </li>
             ))}
           </ul>
-          <p className="hb-proof__bar hb-rv">
-            <b>One standard.</b> Keep what works. Ground the AI in real data. Keep people in charge. Prove it before
-            going live.
-          </p>
         </div>
       </div>
     </section>

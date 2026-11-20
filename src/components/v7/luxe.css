@@ -61,7 +61,6 @@
 .rt-hdr__nav a:hover::before { transform: none; }
 .rt-hdr__nav a[aria-current]::after { display: none; }
 .rt-hdr__nav a[aria-current]::before { transform: none; background: var(--gilt); height: 2px; }
-.rt-logo__word { font: 600 25px/1 var(--f-serif); letter-spacing: -0.035em; }
 .rt-menu nav a { font-family: var(--f-serif); font-weight: 380; }
 .rt-prog { height: 2px; background: linear-gradient(90deg, var(--gilt), var(--gold)); }
 

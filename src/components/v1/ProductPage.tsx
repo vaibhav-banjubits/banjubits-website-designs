@@ -20,7 +20,7 @@ export function ProductPage({ product: p }: { product: Product }) {
         <div className="hb-wrap hb-hero__in">
           <div className="hb-hero__copy">
             <nav className="hb-crumb hb-up" aria-label="Breadcrumb">
-              <Link href="/v4#products">Mentis accelerators</Link>
+              <Link href="/v1#products">Mentis accelerators</Link>
               <span aria-hidden="true">/</span>
               <span>{p.name}</span>
             </nav>
@@ -38,13 +38,13 @@ export function ProductPage({ product: p }: { product: Product }) {
               <span>{p.statusNote}</span>
             </p>
             <div className="hb-actions hb-up" style={d(320)}>
-              <Link href="/v4#start" className="hb-btn" data-magnet>
+              <Link href="/v1#start" className="hb-btn" data-magnet>
                 <span>Start a project</span>
                 <span className="hb-btn__ic">
                   <Icon n="arrow" />
                 </span>
               </Link>
-              <Link href="/v4#products" className="hb-btn hb-btn--ghost" data-magnet>
+              <Link href="/v1#products" className="hb-btn hb-btn--ghost" data-magnet>
                 <span>All Mentis products</span>
               </Link>
             </div>
@@ -166,7 +166,7 @@ export function ProductPage({ product: p }: { product: Product }) {
           <ul className="hb-others">
             {others.map((o) => (
               <li key={o.id} className="hb-rv">
-                <Link href={`/v4/mentis/${o.slug}`} className="hb-other">
+                <Link href={`/v1/mentis/${o.slug}`} className="hb-other">
                   <span className="hb-pcard__ic">
                     <Icon n={o.icon} />
                   </span>
@@ -189,7 +189,7 @@ export function ProductPage({ product: p }: { product: Product }) {
             <h2 className="hb-h2">
               Bring one business problem. <em>Leave with a plan.</em>
             </h2>
-            <Link href="/v4#start" className="hb-btn" data-magnet>
+            <Link href="/v1#start" className="hb-btn" data-magnet>
               <span>Start a project</span>
               <span className="hb-btn__ic">
                 <Icon n="arrow" />

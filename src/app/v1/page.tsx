@@ -1,32 +1,39 @@
-import { Bento } from "@/components/v10/Bento";
-import { Engage } from "@/components/v10/Engage";
-import { Footer } from "@/components/v10/Footer";
-import { Header } from "@/components/v10/Header";
-import { Hero } from "@/components/v10/Hero";
-import { Sprite } from "@/components/v10/Icon";
-import { Motion } from "@/components/v10/Motion";
-import { Promises } from "@/components/v10/Promises";
-import { Proof } from "@/components/v10/Proof";
-import { Start } from "@/components/v10/Start";
+import { Cases } from "@/components/v1/Cases";
+import { Delivery } from "@/components/v1/Delivery";
+import { Hero } from "@/components/v1/Hero";
+import { Products } from "@/components/v1/Products";
+import { Proof } from "@/components/v1/Proof";
+import { Shell } from "@/components/v1/Shell";
+import { Start } from "@/components/v1/Start";
+import { Why } from "@/components/v1/Why";
 
-export default function HomeV10() {
+// Product-led, per the 18 Nov team call: the hero says what BanjuBits does and shows the Mentis
+// products at work, the products come straight after, proof sits lower down, and every product
+// has its own page at /v1/mentis/[slug].
+export default function Home() {
   return (
-    <>
-      <Sprite />
-      <a className="st-skip" href="#st-main">
-        Skip to content
-      </a>
-      <Motion />
-      <Header />
-      <main id="st-main">
-        <Hero />
-        <Bento />
-        <Promises />
-        <Proof />
-        <Engage />
-        <Start />
-      </main>
-      <Footer />
-    </>
+    <Shell>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            name: "BanjuBits",
+            description:
+              "AI engineering company building production AI for enterprises and institutions.",
+            email: "coreops@banjubits.com",
+            sameAs: ["https://www.linkedin.com/company/banjubits/"],
+          }),
+        }}
+      />
+      <Hero />
+      <Products />
+      <Cases />
+      <Proof />
+      <Delivery />
+      <Why />
+      <Start />
+    </Shell>
   );
 }

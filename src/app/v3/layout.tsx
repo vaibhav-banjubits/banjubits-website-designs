@@ -1,29 +1,37 @@
-import type { Metadata } from "next";
-import { Inter, Inter_Tight } from "next/font/google";
-import "@/components/v3/v3.css";
+import type { Metadata, Viewport } from "next";
+import { Fraunces, Plus_Jakarta_Sans } from "next/font/google";
+import "@/components/v7/v7.css";
+import "@/components/v7/luxe.css";
 
-// Sans-serif only, by request: no serif fonts anywhere on this page.
-// Display: Inter Tight (headlines, numbers, the wordmark)
-// Text:    Inter (body copy, UI)
-const display = Inter_Tight({
-  variable: "--font-dh-display",
+// v7 "Ledger Route": the brand lab's Ledger palette (warm paper, ink, deep orange) on a
+// navigation-led page structure. Plus Jakarta Sans carries the UI and body copy; Fraunces,
+// the serif the brand lab pairs with Ledger, carries headlines, figures and quotes.
+const sans = Plus_Jakarta_Sans({
+  variable: "--font-rt-sans",
   subsets: ["latin"],
   display: "swap",
 });
-const text = Inter({
-  variable: "--font-dh-text",
+
+const serif = Fraunces({
+  variable: "--font-rt-serif",
   subsets: ["latin"],
+  style: ["normal", "italic"],
+  axes: ["opsz"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "BanjuBits | AI built into real business work",
+  title: "Banjubits | AI engineering and product studio",
   description:
-    "BanjuBits is an AI engineering company. We build AI into real business work, in a way leadership can trust, with Mentis accelerators that get you to a working pilot in weeks.",
+    "Banjubits is an AI engineering and product studio. We design, build and govern AI systems, digital products and cloud platforms for enterprises and growing companies.",
   // An alternate homepage concept: keep it out of search until it replaces the live one.
   robots: { index: false, follow: false },
 };
 
-export default function V3Layout({ children }: LayoutProps<"/v3">) {
-  return <div className={`dh-root ${display.variable} ${text.variable}`}>{children}</div>;
+export const viewport: Viewport = {
+  themeColor: "#faf7f0",
+};
+
+export default function V7Layout({ children }: { children: React.ReactNode }) {
+  return <div className={`rt-root ${sans.variable} ${serif.variable}`}>{children}</div>;
 }

@@ -15,7 +15,7 @@ const FIGURES = [
 // stats in content.ts are ordered 7→1, ≥95%, 50k+, 100%
 const LABEL = [stats[0].label, stats[1].label, stats[3].label, stats[2].label];
 
-const BADGE_TEXT = "PLAN • BUILD • REVIEW • SHIP • ";
+const BADGE_TEXT = "PLAN • BUILD • REVIEW • SHIP • ";
 
 export function Intro() {
   const loop = [...sectors, ...sectors];
@@ -144,7 +144,7 @@ export function Intro() {
                   <path id="rt-badge-path" d="M64 64 m-47 0 a47 47 0 1 1 94 0 a47 47 0 1 1 -94 0" />
                 </defs>
                 <text>
-                  <textPath href="#rt-badge-path" textLength="292" lengthAdjust="spacing">
+                  <textPath href="#rt-badge-path" textLength="295" lengthAdjust="spacing">
                     {BADGE_TEXT}
                   </textPath>
                 </text>

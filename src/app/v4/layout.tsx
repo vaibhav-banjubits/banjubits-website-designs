@@ -1,39 +1,37 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Manrope } from "next/font/google";
-import "@/components/v1/v1.css";
-import "@/components/v1/products.css";
+import { Fraunces, Plus_Jakarta_Sans } from "next/font/google";
+import "@/components/rh/rh.css";
+import "@/components/rh/luxe.css";
 
-// Deep Harbour (navy + teal) from the Brand Direction doc, Manrope headings with Inter body.
-const display = Manrope({
-  variable: "--font-hb-display",
+// v7 "Harbour Route": the brand lab's Deep Harbour palette (cool paper, navy ink, teal) on a
+// navigation-led page structure. Plus Jakarta Sans carries the UI and body copy; Fraunces,
+// a serif from the brand lab type pairings, carries headlines, figures and quotes.
+const sans = Plus_Jakarta_Sans({
+  variable: "--font-rh-sans",
   subsets: ["latin"],
-  weight: ["500", "600", "700", "800"],
   display: "swap",
 });
 
-const text = Inter({
-  variable: "--font-hb-text",
+const serif = Fraunces({
+  variable: "--font-rh-serif",
   subsets: ["latin"],
+  style: ["normal", "italic"],
+  axes: ["opsz"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "BanjuBits | We build AI into real business work",
+  title: "Banjubits | AI engineering and product studio",
   description:
-    "BanjuBits is an AI engineering company. We design, build and run production AI for enterprises and institutions, with our Mentis accelerators for a faster, safer start.",
-  openGraph: {
-    type: "website",
-    siteName: "BanjuBits",
-    title: "BanjuBits | We build AI into real business work",
-    description:
-      "Production AI for enterprises and institutions: knowledge copilots, agent platforms, modernization, engineering design AI and voice agents, with your people in charge.",
-  },
+    "Banjubits is an AI engineering and product studio. We design, build and govern AI systems, digital products and cloud platforms for enterprises and growing companies.",
+  // An alternate homepage concept: keep it out of search until it replaces the live one.
+  robots: { index: false, follow: false },
 };
 
 export const viewport: Viewport = {
   themeColor: "#f5f7fa",
 };
 
-export default function HomeLayout({ children }: { children: React.ReactNode }) {
-  return <div className={`hb-root ${display.variable} ${text.variable}`}>{children}</div>;
+export default function V7Layout({ children }: { children: React.ReactNode }) {
+  return <div className={`rh-root ${sans.variable} ${serif.variable}`}>{children}</div>;
 }

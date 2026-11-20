@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { Demo } from "./Demos";
-import { products, promises } from "./data";
+import { products } from "./data";
 import { Icon } from "./Icon";
 
 const d = (ms: number) => ({ "--d": `${ms}ms` }) as React.CSSProperties;
@@ -52,35 +52,22 @@ export function Hero() {
 
       <div className="hb-wrap hb-hero__in">
         <div className="hb-hero__copy">
-          <p className="hb-kicker hb-up" style={d(0)}>
-            <i /> AI engineering company · Mentis accelerators
-          </p>
-          <h1 className="hb-h1 hb-up" style={d(80)}>
-            We build AI into real business work, <em>in a way leadership can trust.</em>
+          <h1 className="hb-h1 hb-up" style={d(60)}>
+            AI built into real business work, <em>that leadership can trust.</em>
           </h1>
-          <p className="hb-lede hb-up" style={d(180)}>
-            We design, build and run production AI for enterprises and institutions. Our own Mentis
-            accelerators get you to a working pilot in weeks, not months.
+          <p className="hb-lede hb-up" style={d(140)}>
+            Production AI for enterprises, with Mentis accelerators that get you to a working pilot in weeks.
           </p>
 
-          <ul className="hb-prom hb-up" style={d(260)}>
-            {promises.map((p) => (
-              <li key={p.title}>
-                <Icon n="check" />
-                {p.title}
-              </li>
-            ))}
-          </ul>
-
-          <div className="hb-actions hb-up" style={d(340)}>
-            <Link href="/v4#start" className="hb-btn" data-magnet>
+          <div className="hb-actions hb-up" style={d(220)}>
+            <Link href="/v1#start" className="hb-btn" data-magnet>
               <span>Start a project</span>
               <span className="hb-btn__ic">
                 <Icon n="arrow" />
               </span>
             </Link>
-            <Link href="/v4#products" className="hb-btn hb-btn--ghost" data-magnet>
-              <span>Explore the Mentis products</span>
+            <Link href="/v1#products" className="hb-link">
+              See the products <Icon n="arrow" />
             </Link>
           </div>
         </div>
@@ -146,9 +133,8 @@ export function Hero() {
                     <b>{cur.name}</b>
                     <span className={`hb-pill hb-pill--${cur.status.toLowerCase().replace(" ", "-")}`}>{cur.status}</span>
                   </div>
-                  <p>{cur.summary}</p>
                 </div>
-                <Link href={`/v4/mentis/${cur.slug}`} className="hb-link">
+                <Link href={`/v1/mentis/${cur.slug}`} className="hb-link">
                   Explore <Icon n="arrow" />
                 </Link>
               </div>

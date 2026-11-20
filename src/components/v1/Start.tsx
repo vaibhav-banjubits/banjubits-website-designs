@@ -2,12 +2,11 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { email, footerNav, industries, linkedin } from "./data";
+import { email, footerNav, linkedin } from "./data";
 import { Icon } from "./Icon";
 import { Logo } from "./Logo";
 
 export function Start() {
-  const [industry, setIndustry] = useState(industries[0]);
   const [sent, setSent] = useState(false);
 
   return (
@@ -25,23 +24,11 @@ export function Start() {
                 Bring one business problem. <em>Leave with a plan.</em>
               </h2>
               <p className="hb-lede">
-                A 90-minute working session. You will leave with the AI options, the risks and the shape of a first
-                pilot. References are available under NDA.
+                A 90-minute working session. You leave with the options, the risks and the shape of a first pilot.
               </p>
-              <ul className="hb-ticks">
-                <li>
-                  <Icon n="check" />
-                  Fixed-scope starting points, no lock-in
-                </li>
-                <li>
-                  <Icon n="check" />
-                  Working software every week, not slide decks
-                </li>
-                <li>
-                  <Icon n="check" />
-                  Prefer email? <a href={`mailto:${email}`}>{email}</a>
-                </li>
-              </ul>
+              <p className="hb-start__mail">
+                Prefer email? <a href={`mailto:${email}`}>{email}</a>
+              </p>
             </div>
 
             {sent ? (
@@ -52,7 +39,7 @@ export function Start() {
                 <h3 className="hb-h3">Thanks, that is the form working.</h3>
                 <p>
                   This is a design concept, so nothing was sent. On the live site this would save a lead with your
-                  industry ({industry}) and source page, then confirm by email.
+                  details and source page, then confirm by email.
                 </p>
                 <button type="button" className="hb-btn hb-btn--ghost" onClick={() => setSent(false)}>
                   <span>Back to the form</span>
@@ -67,22 +54,6 @@ export function Start() {
                   setSent(true);
                 }}
               >
-                <fieldset className="hb-form__fs">
-                  <legend className="hb-form__l">Your industry</legend>
-                  <div className="hb-chips hb-chips--sm">
-                    {industries.map((i) => (
-                      <button
-                        key={i}
-                        type="button"
-                        className="hb-chip"
-                        aria-pressed={i === industry}
-                        onClick={() => setIndustry(i)}
-                      >
-                        {i}
-                      </button>
-                    ))}
-                  </div>
-                </fieldset>
                 <div className="hb-form__row">
                   <label className="hb-field">
                     <span>Your name</span>
@@ -153,7 +124,6 @@ export function Footer() {
         </div>
         <div className="hb-foot__base">
           <span>© 2026 BanjuBits. Client work is anonymised.</span>
-          <span>Every answer shows its source · Your people make the call · Your data stays inside your walls</span>
         </div>
       </div>
       <div className="hb-foot__mark" aria-hidden="true">

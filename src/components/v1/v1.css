@@ -1878,3 +1878,66 @@
 .hb-hdr .hb-logo__word { font-size: clamp(1.8rem, 2.4vw, 2.2rem); }
 .hb-foot__brand .hb-logo__word { font-size: 2rem; }
 .hb-hdr .hb-logo__bit, .hb-foot__brand .hb-logo__bit { width: 8px; height: 8px; margin-left: 3px; }
+
+
+/* ---------- declutter pass: fewer, quieter blocks ---------- */
+.hb-head--solo { justify-content: flex-start; }
+.hb-sec { padding-block: clamp(56px, 7vw, 104px); }
+.hb-hero .hb-actions { margin-top: 28px; align-items: center; }
+.hb-hero .hb-lede { max-width: 40ch; }
+
+/* How we engage: four steps in a row */
+.hb-flow {
+  display: grid;
+  gap: 0;
+  border-top: 1px solid color-mix(in srgb, var(--navy) 12%, transparent);
+}
+.hb-flow__step {
+  display: grid;
+  gap: 8px;
+  padding: 26px 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--navy) 12%, transparent);
+}
+.hb-flow__no {
+  font: 800 2.4rem/1 var(--f-display);
+  letter-spacing: -0.05em;
+  color: transparent;
+  -webkit-text-stroke: 1.5px color-mix(in srgb, var(--teal) 70%, var(--navy));
+}
+.hb-flow__step .hb-h3 { font-size: 1.5rem; margin-top: 10px; }
+.hb-flow__time {
+  font: 700 0.78rem/1 var(--f-text);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--signal);
+}
+.hb-flow__step p { max-width: 34ch; color: var(--muted); font-size: 1rem; }
+
+/* Why: three promises */
+.hb-pledge {
+  display: grid;
+  gap: 14px;
+}
+.hb-pledge li {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 28px;
+  border-radius: 28px;
+  background: var(--paper);
+  border: 1px solid color-mix(in srgb, var(--navy) 8%, transparent);
+}
+.hb-pledge__no { font: 800 0.85rem/1 var(--f-display); color: var(--signal); }
+.hb-pledge b { font: 800 1.3rem/1.2 var(--f-display); letter-spacing: -0.02em; }
+.hb-pledge li > span:last-child { color: var(--muted); }
+
+.hb-start__mail { margin-top: 22px; color: var(--on-night); font-weight: 500; }
+.hb-start__mail a { text-decoration: underline; text-underline-offset: 4px; }
+
+@media (min-width: 760px) {
+  .hb-pledge { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+}
+@media (min-width: 900px) {
+  .hb-flow { grid-template-columns: repeat(4, minmax(0, 1fr)); border-bottom: 0; }
+  .hb-flow__step { padding: 32px 28px 8px 0; border-bottom: 0; }
+}

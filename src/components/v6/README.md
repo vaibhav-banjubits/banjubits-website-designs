@@ -1,4 +1,4 @@
-# Homepage v6 (`/v6`): "Ledger Studio"
+# Homepage v6 (`/v2`): "Ledger Studio"
 
 A modern, premium concept built to put the work first, with generous spacing. It uses the brand lab's **Ledger** palette: warm paper `#FAF7F0`, warm ink `#1C1917`, saffron `#F0A830` for the one action and details, and deep amber `#9A4F06` for accent text on light. (The first version was petrol green; it was replaced at the user's request.) Headlines and UI are Instrument Sans; each headline gets one Newsreader italic word, rendered with a soft metallic sheen. All styles live in `v6.css`, prefixed `gl-` and scoped under `.gl-root`. Colours read the shared `--t-*` palette-selector tokens, falling back to the values above.
 

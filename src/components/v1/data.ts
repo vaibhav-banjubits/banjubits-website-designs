@@ -12,10 +12,10 @@ export const email = "coreops@banjubits.com";
 export const linkedin = "https://www.linkedin.com/company/banjubits/";
 
 export const NAV = [
-  { label: "Products", href: "/v4#products" },
-  { label: "Case studies", href: "/v4#work" },
-  { label: "How we engage", href: "/v4#engage" },
-  { label: "Why BanjuBits", href: "/v4#why" },
+  { label: "Products", href: "/v1#products" },
+  { label: "Case studies", href: "/v1#work" },
+  { label: "How we engage", href: "/v1#engage" },
+  { label: "Why BanjuBits", href: "/v1#why" },
 ];
 
 export type Status = "Live" | "Pilot" | "In development" | "Roadmap";
@@ -297,27 +297,27 @@ export const pains: Pain[] = [
     q: "We ran the pilots. None made it into daily work.",
     answer: "Start where the value is.",
     text: "We choose the one or two AI uses worth doing, then build a working pilot on your real data, with real users, and measure it against today's baseline. AI in daily work, not in a lab.",
-    links: [{ label: "How we engage", href: "/v4#engage" }],
+    links: [{ label: "How we engage", href: "/v1#engage" }],
   },
   {
     q: "I can't sign off on answers nobody can check.",
     answer: "Every answer shows its source.",
     text: "People see where each answer comes from, so they can check it, trust it and act on it. Atlas respects each person's access rights and logs every request, so auditors can check too.",
-    links: [{ label: "Mentis Atlas", href: "/v4/mentis/atlas" }],
+    links: [{ label: "Mentis Atlas", href: "/v1/mentis/atlas" }],
   },
   {
     q: "Our most sensitive data can't leave the building.",
     answer: "Your data stays inside your walls.",
     text: "We run in your cloud or on your premises, with the AI models you choose, inside your security and your sign-in. Sensitive data stays under your control.",
-    links: [{ label: "Delivery automation", href: "/v4/mentis/delivery-automation" }],
+    links: [{ label: "Delivery automation", href: "/v1/mentis/delivery-automation" }],
   },
   {
     q: "Our best people are stuck on repetitive work and old systems.",
     answer: "Less manual work, and no big-bang risk.",
     text: "Hub brings your assistants behind one front door and lets AI finish tasks, with human approval where it matters. Renew moves old systems to a modern stack and proves the results match before you switch.",
     links: [
-      { label: "Mentis Hub", href: "/v4/mentis/hub" },
-      { label: "Mentis Renew", href: "/v4/mentis/renew" },
+      { label: "Mentis Hub", href: "/v1/mentis/hub" },
+      { label: "Mentis Renew", href: "/v1/mentis/renew" },
     ],
   },
   {
@@ -325,8 +325,8 @@ export const pains: Pain[] = [
     answer: "Keep its cost in plain sight.",
     text: "We choose the right AI model for each job and track usage and cost, so spend stays visible and under control, not a surprise at the end of the quarter.",
     links: [
-      { label: "Mentis Hub", href: "/v4/mentis/hub" },
-      { label: "Delivery automation", href: "/v4/mentis/delivery-automation" },
+      { label: "Mentis Hub", href: "/v1/mentis/hub" },
+      { label: "Delivery automation", href: "/v1/mentis/delivery-automation" },
     ],
   },
 ];
@@ -514,15 +514,15 @@ export const why = [
 export const footerNav = [
   {
     title: "Mentis products",
-    links: products.map((p) => ({ label: p.name, href: `/v4/mentis/${p.slug}` })),
+    links: products.map((p) => ({ label: p.name, href: `/v1/mentis/${p.slug}` })),
   },
   {
     title: "Company",
     links: [
-      { label: "Case studies", href: "/v4#work" },
-      { label: "How we engage", href: "/v4#engage" },
-      { label: "Why BanjuBits", href: "/v4#why" },
-      { label: "Start a project", href: "/v4#start" },
+      { label: "Case studies", href: "/v1#work" },
+      { label: "How we engage", href: "/v1#engage" },
+      { label: "Why BanjuBits", href: "/v1#why" },
+      { label: "Start a project", href: "/v1#start" },
     ],
   },
   {

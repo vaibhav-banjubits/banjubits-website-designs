@@ -1,34 +1,36 @@
-import type { Metadata } from "next";
-import { Jost, Manrope } from "next/font/google";
-import "@/components/maison/maison.css";
+import type { Metadata, Viewport } from "next";
+import { Instrument_Sans, Newsreader } from "next/font/google";
+import "@/components/v6/v6.css";
 
-// Sans-serif only, by request: no serif fonts anywhere on this page.
-// Display: Jost (headlines, numerals, wordmark): a light, geometric luxury sans
-// Text:    Manrope (body copy, UI, tracked small caps)
-const display = Jost({
-  variable: "--font-mn-display",
+// v6 "Gilt & Petrol": limestone paper, deep petrol ink and a restrained gilt accent.
+// Instrument Sans carries headlines and UI; Newsreader italic is the single serif accent.
+const sans = Instrument_Sans({
+  variable: "--font-gl-sans",
   subsets: ["latin"],
-  style: ["normal", "italic"],
+  axes: ["wdth"],
   display: "swap",
 });
-const text = Manrope({
-  variable: "--font-mn-text",
+
+const serif = Newsreader({
+  variable: "--font-gl-serif",
   subsets: ["latin"],
+  style: ["italic"],
+  axes: ["opsz"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Banjubits | AI built into real business work",
+  title: "Banjubits | AI engineering and product studio",
   description:
-    "Banjubits builds AI into real business work, with Mentis accelerators that get you to a working pilot in weeks: knowledge copilots, agentic automation, modernization, engineering design, voice and cloud.",
+    "Banjubits is an AI engineering and product studio. We design, build and govern AI systems, digital products and cloud platforms for enterprises and growing companies.",
   // An alternate homepage concept: keep it out of search until it replaces the live one.
   robots: { index: false, follow: false },
 };
 
-export default function MaisonLayout({ children }: LayoutProps<"/v2">) {
-  return (
-    <div className={`mn-root ${display.variable} ${text.variable}`}>
-      {children}
-    </div>
-  );
+export const viewport: Viewport = {
+  themeColor: "#edece5",
+};
+
+export default function V6Layout({ children }: LayoutProps<"/v2">) {
+  return <div className={`gl-root ${sans.variable} ${serif.variable}`}>{children}</div>;
 }

@@ -3,7 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { cases } from "./data";
+import { cases as allCases } from "./data";
+
+// Four cases are enough: the three delivered engagements and the one in delivery.
+const cases = allCases.filter((c) => ["hub", "renew", "atlas", "education"].includes(c.id));
 import { Icon } from "./Icon";
 
 /**
@@ -19,7 +22,7 @@ export function Cases() {
   return (
     <section id="work" className="hb-sec">
       <div className="hb-wrap">
-        <div className="hb-head hb-rv">
+        <div className="hb-head hb-head--solo hb-rv">
           <div>
             <p className="hb-kicker">
               <i /> Case studies
@@ -28,9 +31,6 @@ export function Cases() {
               Every story starts with <em>the result.</em>
             </h2>
           </div>
-          <p className="hb-head__side">
-            Clients are anonymised. Each case is labelled: delivered, in delivery, a live demo, or still a proposal.
-          </p>
         </div>
 
         <div
@@ -85,17 +85,12 @@ export function Cases() {
                   <div className="hb-row__more">
                     <div>
                       <p>{c.summary}</p>
-                      <ul className="hb-tags">
-                        {c.tags.map((t) => (
-                          <li key={t}>{t}</li>
-                        ))}
-                      </ul>
                       {c.product ? (
-                        <Link href={`/v4/mentis/${c.product}`} className="hb-link">
+                        <Link href={`/v1/mentis/${c.product}`} className="hb-link">
                           See the product <Icon n="arrow" />
                         </Link>
                       ) : (
-                        <Link href="/v4#start" className="hb-link">
+                        <Link href="/v1#start" className="hb-link">
                           Start a similar project <Icon n="arrow" />
                         </Link>
                       )}

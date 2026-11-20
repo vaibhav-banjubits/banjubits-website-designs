@@ -1,22 +1,39 @@
-import type { Metadata } from "next";
-import { Geist } from "next/font/google";
-import "@/components/v10/v10.css";
+import type { Metadata, Viewport } from "next";
+import { Inter, Manrope } from "next/font/google";
+import "@/components/v1/v1.css";
+import "@/components/v1/products.css";
 
-// Sans-serif only, by request: no serif fonts anywhere on this page.
-const font = Geist({
-  variable: "--font-st",
+// Deep Harbour (navy + teal) from the Brand Direction doc, Manrope headings with Inter body.
+const display = Manrope({
+  variable: "--font-hb-display",
+  subsets: ["latin"],
+  weight: ["500", "600", "700", "800"],
+  display: "swap",
+});
+
+const text = Inter({
+  variable: "--font-hb-text",
   subsets: ["latin"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "BanjuBits | AI built into real business work",
+  title: "BanjuBits | We build AI into real business work",
   description:
-    "BanjuBits is an AI engineering company. Tell us what you want AI to do: Mentis accelerators get you to a working pilot in weeks, with your people in charge.",
-  // An alternate homepage concept: keep it out of search until it replaces the live one.
-  robots: { index: false, follow: false },
+    "BanjuBits is an AI engineering company. We design, build and run production AI for enterprises and institutions, with our Mentis accelerators for a faster, safer start.",
+  openGraph: {
+    type: "website",
+    siteName: "BanjuBits",
+    title: "BanjuBits | We build AI into real business work",
+    description:
+      "Production AI for enterprises and institutions: knowledge copilots, agent platforms, modernization, engineering design AI and voice agents, with your people in charge.",
+  },
 };
 
-export default function V10Layout({ children }: LayoutProps<"/v1">) {
-  return <div className={`st-root ${font.variable}`}>{children}</div>;
+export const viewport: Viewport = {
+  themeColor: "#f5f7fa",
+};
+
+export default function HomeLayout({ children }: { children: React.ReactNode }) {
+  return <div className={`hb-root ${display.variable} ${text.variable}`}>{children}</div>;
 }

@@ -54,7 +54,7 @@ export function Header() {
   return (
     <header className="hb-hdr" data-scrolled={scrolled || undefined} data-open={open || undefined}>
       <div className="hb-hdr__bar hb-wrap">
-        <Link href="/v4" className="hb-hdr__logo" aria-label="Banjubits home" onClick={close}>
+        <Link href="/v1" className="hb-hdr__logo" aria-label="Banjubits home" onClick={close}>
           <Logo />
         </Link>
 
@@ -71,7 +71,7 @@ export function Header() {
         </nav>
 
         <div className="hb-hdr__end">
-          <Link href="/v4#start" className="hb-btn hb-btn--sm hb-hdr__cta">
+          <Link href="/v1#start" className="hb-btn hb-btn--sm hb-hdr__cta">
             Start a project
           </Link>
           <button
@@ -98,7 +98,7 @@ export function Header() {
             </Link>
           ))}
         </nav>
-        <Link href="/v4#start" className="hb-btn hb-menu__cta" onClick={close}>
+        <Link href="/v1#start" className="hb-btn hb-menu__cta" onClick={close}>
           Start a project
           <span className="hb-btn__ic">
             <Icon n="arrow" />

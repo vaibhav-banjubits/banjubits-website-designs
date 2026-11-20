@@ -1,32 +1,32 @@
-import { Footer } from "@/components/maison/Footer";
-import { Header } from "@/components/maison/Header";
-import { Hero } from "@/components/maison/Hero";
-import { Sprite } from "@/components/maison/Icon";
-import { Motion } from "@/components/maison/Motion";
-import {
-  Approach,
-  Products,
-  Questions,
-  Why,
-  Work,
-} from "@/components/maison/Sections";
+import { Approach } from "@/components/v6/Approach";
+import { Capabilities } from "@/components/v6/Capabilities";
+import { Closing, Footer } from "@/components/v6/Closing";
+import { Header } from "@/components/v6/Header";
+import { Hero } from "@/components/v6/Hero";
+import { Insights } from "@/components/v6/Insights";
+import { Motion } from "@/components/v6/Motion";
+import { Products } from "@/components/v6/Products";
+import { Sectors } from "@/components/v6/Sectors";
+import { Work } from "@/components/v6/Work";
 
-export default function HomeMaison() {
+export default function HomeV6() {
   return (
     <>
-      <Sprite />
-      <a className="mn-skip" href="#mn-main">
+      <a className="gl-skip" href="#gl-main">
         Skip to content
       </a>
+      <div className="gl-prog" aria-hidden="true" />
       <Motion />
       <Header />
-      <main id="mn-main">
+      <main id="gl-main">
         <Hero />
-        <Products />
-        <Questions />
         <Work />
+        <Capabilities />
+        <Sectors />
         <Approach />
-        <Why />
+        <Products />
+        <Insights />
+        <Closing />
       </main>
       <Footer />
     </>

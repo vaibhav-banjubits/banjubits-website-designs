@@ -1,4 +1,4 @@
-# Homepage v7 (`/v7`): "Ledger Route"
+# Homepage v7 (`/v3`): "Ledger Route"
 
 Built from a reference page the user supplied (a navigation-themed consultancy homepage), minus its hero banner: the page opens straight on the intro headline. It uses the brand lab's **Ledger** palette: warm paper `#FAF7F0` and warm ink `#1C1917`, with Ledger's **deep orange `#C2410C`** (its viz4 swatch; `#E26D3A` in dark mode) as the primary for buttons, accents and fills, at the user's request instead of the saffron CTA. White text on it is 5.2:1. The primary is set in `v7.css` (`--rt-orange`), so it does not follow the palette selector's primary token; paper, ink and surfaces still do. Plus Jakarta Sans throughout. Bright, rounded cards and pill buttons with a circle arrow, as in the reference. All styles live in `v7.css`, prefixed `rt-` and scoped under `.rt-root`; colours read the shared `--t-*` palette-selector tokens and fall back to the Ledger values.
 
